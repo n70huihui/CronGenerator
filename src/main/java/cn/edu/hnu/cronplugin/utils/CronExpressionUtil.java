@@ -64,6 +64,10 @@ public class CronExpressionUtil {
      * @param values
      */
     public static void setSpecify(CronItemEnum itemEnum, List<String> values) {
+        if (values.isEmpty()) {
+            setNoSpecify(itemEnum);
+            return;
+        }
         String specifyStr = values.stream()
                 .map(Integer::parseInt)
                 .sorted()

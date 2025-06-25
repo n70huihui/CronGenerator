@@ -1,7 +1,10 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
-import com.intellij.util.ui.JBUI;
+import cn.edu.hnu.cronplugin.utils.CheckBoxUtil;
+import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
+import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -13,12 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CronMinutesPanel extends AbstractPanel {
@@ -56,16 +59,16 @@ public class CronMinutesPanel extends AbstractPanel {
         radioGroup.add(rangeRadio);
 
         // 范围选项的输入框
-        rangeFromField = new JTextField("1", 3);
-        rangeToField = new JTextField("2", 3);
+        rangeFromField = new JTextField("1", 5);
+        rangeToField = new JTextField("2", 5);
 
         // 选项3：间隔执行的单选按钮
         intervalRadio = new JRadioButton("周期从");
         radioGroup.add(intervalRadio);
 
         // 间隔选项的输入框
-        intervalStartField = new JTextField("0", 3);
-        intervalStepField = new JTextField("1", 3);
+        intervalStartField = new JTextField("0", 5);
+        intervalStepField = new JTextField("1", 5);
 
         // 选项4：指定秒数的单选按钮
         specifyRadio = new JRadioButton("指定");
@@ -160,30 +163,50 @@ public class CronMinutesPanel extends AbstractPanel {
 
     @Override
     protected void setupEventHandlers() {
-        // 根据单选按钮选择启用/禁用组件
-        ActionListener radioListener = new ActionListener() {
+        ActionListener updateActionListener = e -> {
+            updateComponentStates();
+            updateMinutes();
+        };
+
+        DocumentListener updateDocumentListener = new DocumentListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void insertUpdate(DocumentEvent e) {
                 updateComponentStates();
+                updateMinutes();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateComponentStates();
+                updateMinutes();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
             }
         };
 
-        everySecondRadio.addActionListener(radioListener);
-        rangeRadio.addActionListener(radioListener);
-        intervalRadio.addActionListener(radioListener);
-        specifyRadio.addActionListener(radioListener);
+        // 根据单选按钮选择启用/禁用组件
+        everySecondRadio.addActionListener(updateActionListener);
+        rangeRadio.addActionListener(updateActionListener);
+        intervalRadio.addActionListener(updateActionListener);
+        specifyRadio.addActionListener(updateActionListener);
 
         // 为输入框添加变化监听器
-        ActionListener fieldListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        };
+        rangeFromField.getDocument().addDocumentListener(updateDocumentListener);
+        rangeToField.getDocument().addDocumentListener(updateDocumentListener);
+        intervalStartField.getDocument().addDocumentListener(updateDocumentListener);
+        intervalStepField.getDocument().addDocumentListener(updateDocumentListener);
 
-        rangeFromField.addActionListener(fieldListener);
-        rangeToField.addActionListener(fieldListener);
-        intervalStartField.addActionListener(fieldListener);
-        intervalStepField.addActionListener(fieldListener);
+        // 为复选框添加变化监听器
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 10; col++) {
+                if (secondCheckboxes[row][col] != null) {
+                    secondCheckboxes[row][col].addActionListener(updateActionListener);
+                }
+            }
+        }
 
         // 设置初始状态
         updateComponentStates();
@@ -207,5 +230,22 @@ public class CronMinutesPanel extends AbstractPanel {
                 }
             }
         }
+    }
+
+    private void updateMinutes() {
+        if (everySecondRadio.isSelected()) {
+            // 每秒执行
+            CronExpressionUtil.setEvery(CronItemEnum.MINUTE);
+        } else if (rangeRadio.isSelected()) {
+            // 范围执行
+            CronExpressionUtil.setRange(CronItemEnum.MINUTE, rangeFromField.getText(), rangeToField.getText());
+        } else if (intervalRadio.isSelected()) {
+            // 间隔执行
+            CronExpressionUtil.setInterval(CronItemEnum.MINUTE, intervalStartField.getText(), intervalStepField.getText());
+        } else if (specifyRadio.isSelected()) {
+            // 指定秒数
+            CronExpressionUtil.setSpecify(CronItemEnum.MINUTE, CheckBoxUtil.getSelectedCheckBoxes(secondCheckboxes));
+        }
+        CronResultPanelUtil.updateCronExpression();
     }
 }
