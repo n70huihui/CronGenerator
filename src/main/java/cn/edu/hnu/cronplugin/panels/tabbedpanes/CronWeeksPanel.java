@@ -54,12 +54,12 @@ public class CronWeeksPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每周执行 - 左对齐
-        everyWeekRadio = new JRadioButton("每周 允许的通配符[,-*/L#]", true);
+        everyWeekRadio = new JRadioButton("每周 允许的通配符[,-*/L#]");
         everyWeekRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
         radioGroup.add(everyWeekRadio);
 
         // 选项2：不指定
-        noSpecifyRadio = new JRadioButton("不指定");
+        noSpecifyRadio = new JRadioButton("不指定", true);
         noSpecifyRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
         radioGroup.add(noSpecifyRadio);
 

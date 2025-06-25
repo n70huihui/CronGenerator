@@ -1,6 +1,7 @@
 package cn.edu.hnu.cronplugin.panels.resultpanels;
 
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ public class CronExpressionPanel extends AbstractPanel {
     @Override
     protected void initializeComponents() {
         cronExpressionLabel = new JLabel("表达式: ");
-        cronExpressionField = new JTextField("* * * * * *");
+        cronExpressionField = new JTextField(CronExpressionUtil.getCronExpression());
     }
 
     @Override

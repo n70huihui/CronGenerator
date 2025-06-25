@@ -28,7 +28,7 @@ public class CronDaysPanel extends AbstractPanel {
     private JRadioButton intervalRadio;
     private JRadioButton nearestWeekdayRadio;
     private JRadioButton lastDayRadio;
-    private JRadioButton lastWorkDayRadio;
+    private JRadioButton lastWeekDayRadio;
     private JRadioButton specifyRadio;
 
     // 范围选项的组件
@@ -90,9 +90,9 @@ public class CronDaysPanel extends AbstractPanel {
         radioGroup.add(lastDayRadio);
 
         // 选项7：本月最后一个工作日
-        lastWorkDayRadio = new JRadioButton("本月最后一个工作日");
-        lastWorkDayRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(lastWorkDayRadio);
+        lastWeekDayRadio = new JRadioButton("本月最后一个工作日");
+        lastWeekDayRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
+        radioGroup.add(lastWeekDayRadio);
 
         // 选项8：指定日期的单选按钮
         specifyRadio = new JRadioButton("指定");
@@ -176,7 +176,7 @@ public class CronDaysPanel extends AbstractPanel {
         contentPanel.add(Box.createVerticalStrut(15));
         contentPanel.add(lastDayRadio);
         contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(lastWorkDayRadio);
+        contentPanel.add(lastWeekDayRadio);
         contentPanel.add(Box.createVerticalStrut(15));
         contentPanel.add(specifyPanel);
 
@@ -233,7 +233,7 @@ public class CronDaysPanel extends AbstractPanel {
         intervalRadio.addActionListener(radioListener);
         nearestWeekdayRadio.addActionListener(radioListener);
         lastDayRadio.addActionListener(radioListener);
-        lastWorkDayRadio.addActionListener(radioListener);
+        lastWeekDayRadio.addActionListener(radioListener);
         specifyRadio.addActionListener(radioListener);
 
         // 为输入框添加变化监听器

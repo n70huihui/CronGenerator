@@ -22,6 +22,7 @@ public class CronYearsPanel extends AbstractPanel {
     private JRadioButton everyYearRadio;
     private JRadioButton noSpecifyRadio;
     private JRadioButton rangeRadio;
+    private JRadioButton unUsedRadio;
 
     // 范围选项的组件
     private JTextField rangeFromField;
@@ -38,7 +39,7 @@ public class CronYearsPanel extends AbstractPanel {
         radioGroup.add(everyYearRadio);
 
         // 选项2：不指定
-        noSpecifyRadio = new JRadioButton("不指定", true);
+        noSpecifyRadio = new JRadioButton("不指定");
         noSpecifyRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
         radioGroup.add(noSpecifyRadio);
 
@@ -52,6 +53,11 @@ public class CronYearsPanel extends AbstractPanel {
         // 范围选项的输入框
         rangeFromField = new JTextField(String.valueOf(currentYear), 6);
         rangeToField = new JTextField(String.valueOf(currentYear + 1), 6);
+
+        // 选项4：不使用（支持 Unix Cron）
+        unUsedRadio = new JRadioButton("不使用");
+        unUsedRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
+        radioGroup.add(unUsedRadio);
     }
 
     @Override
@@ -80,6 +86,8 @@ public class CronYearsPanel extends AbstractPanel {
         contentPanel.add(noSpecifyRadio);
         contentPanel.add(Box.createVerticalStrut(15));
         contentPanel.add(rangePanel);
+        contentPanel.add(Box.createVerticalStrut(15));
+        contentPanel.add(unUsedRadio);
 
         add(contentPanel, BorderLayout.NORTH);
     }
