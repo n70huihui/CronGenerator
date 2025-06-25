@@ -2,6 +2,7 @@ package cn.edu.hnu.cronplugin.utils;
 
 import cn.edu.hnu.cronplugin.cron.CronExpression;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +38,10 @@ public class CronExpressionUtil {
      * @param start
      * @param end
      */
-    public static void setRange(CronItemEnum itemEnum, int start, int end) {
+    public static void setRange(CronItemEnum itemEnum, String start, String end) {
+        if (!StringUtils.isNumeric(start) || !StringUtils.isNumeric(end)) {
+            return;
+        }
         CRON_EXPRESSION.setItemByIndex(itemEnum.getIndex(), start + "-" + end);
     }
 
@@ -47,7 +51,10 @@ public class CronExpressionUtil {
      * @param start
      * @param end
      */
-    public static void setInterval(CronItemEnum itemEnum, int start, int end) {
+    public static void setInterval(CronItemEnum itemEnum, String start, String end) {
+        if (!StringUtils.isNumeric(start) || !StringUtils.isNumeric(end)) {
+            return;
+        }
         CRON_EXPRESSION.setItemByIndex(itemEnum.getIndex(), start + "/" + end);
     }
 
@@ -88,7 +95,10 @@ public class CronExpressionUtil {
      * 设置每月最近的工作日
      * @param day
      */
-    public static void setNearestWeekdayOfMonth(int day) {
+    public static void setNearestWeekdayOfMonth(String day) {
+        if (!StringUtils.isNumeric(day)) {
+            return;
+        }
         CRON_EXPRESSION.setItemByIndex(CronItemEnum.DAY.getIndex(), day + "W");
     }
 
@@ -111,7 +121,10 @@ public class CronExpressionUtil {
      * @param week
      * @param day
      */
-    public static void setNthWeek(int week, int day) {
+    public static void setNthWeek(String week, String day) {
+        if (!StringUtils.isNumeric(week) || !StringUtils.isNumeric(day)) {
+            return;
+        }
         CRON_EXPRESSION.setItemByIndex(CronItemEnum.WEEK.getIndex(), week + "#" + day);
     }
 
@@ -119,7 +132,11 @@ public class CronExpressionUtil {
      * 设置每月最后一个星期
      * @param day
      */
-    public static void setLastWeekOfMonth(int day) {
-        CRON_EXPRESSION.setItemByIndex(CronItemEnum.WEEK.getIndex(), (day + 1) + "L");
+    public static void setLastWeekOfMonth(String day) {
+        if (!StringUtils.isNumeric(day)) {
+            return;
+        }
+        int dayNum = Integer.parseInt(day);
+        CRON_EXPRESSION.setItemByIndex(CronItemEnum.WEEK.getIndex(), (dayNum + 1) + "L");
     }
 }

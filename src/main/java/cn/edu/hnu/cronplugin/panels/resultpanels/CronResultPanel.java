@@ -15,6 +15,14 @@ public class CronResultPanel extends AbstractPanel {
     // TODO 创建表达式表格
     private CronExpressionPanel cronExpressionPanel;
 
+    /**
+     * 设置 Cron 表达式
+     * @param cronExpression Cron 表达式
+     */
+    public void setCronExpression(String cronExpression) {
+        cronExpressionPanel.setCronExpressionField(cronExpression);
+    }
+
     @Override
     protected void initializeComponents() {
         cronExpressionPanel = new CronExpressionPanel();

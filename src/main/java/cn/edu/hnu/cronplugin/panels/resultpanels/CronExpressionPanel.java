@@ -8,16 +8,26 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class CronExpressionPanel extends AbstractPanel {
 
     private JLabel cronExpressionLabel;
     private JTextField cronExpressionField;
 
+    public void setCronExpressionField(String cronExpression) {
+        cronExpressionField.setText(cronExpression);
+    }
+
     @Override
     protected void initializeComponents() {
-        cronExpressionLabel = new JLabel("表达式: ");
+        cronExpressionLabel = new JLabel("  表达式: ");
         cronExpressionField = new JTextField(CronExpressionUtil.getCronExpression());
+        cronExpressionField.setEditable(false);
+        cronExpressionField.setColumns(30);
+        Font currentFont = cronExpressionField.getFont();
+        Font newFont = currentFont.deriveFont(12f);
+        cronExpressionField.setFont(newFont);
     }
 
     @Override

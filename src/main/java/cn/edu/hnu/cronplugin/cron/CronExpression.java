@@ -10,7 +10,7 @@ public class CronExpression {
     private String[] expression;
 
     public CronExpression() {
-        expression = new String[]{"* * * * * ? *"};
+        expression = new String[]{"*", "*", "*", "*", "*", "?", "*"};
     }
 
     /**

@@ -1,6 +1,7 @@
 package cn.edu.hnu.cronplugin.panels;
 
 import cn.edu.hnu.cronplugin.panels.resultpanels.CronResultPanel;
+import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 import cn.edu.hnu.cronplugin.utils.TabbedPaneUtil;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
@@ -16,14 +17,10 @@ import java.awt.ScrollPane;
 public class CronMainBuilderPanel extends AbstractPanel {
     private JTabbedPane tabbedPane;
     private JBScrollPane resultScrollPane;
-    private CronResultPanel cronResultPanel;
 
     @Override
     protected void initializeComponents() {
         tabbedPane = new JBTabbedPane();
-
-        // 创建 CRON 结果面板
-        cronResultPanel = new CronResultPanel();
 
         // 添加标签页
         String[] tabNames = {"秒", "分钟", "小时", "日", "月", "周", "年"};
@@ -39,7 +36,7 @@ public class CronMainBuilderPanel extends AbstractPanel {
         // 设置第一个标签页为选中状态
         tabbedPane.setSelectedIndex(0);
 
-        resultScrollPane = new JBScrollPane(cronResultPanel);
+        resultScrollPane = new JBScrollPane(CronResultPanelUtil.getCronResultPanel());
         resultScrollPane.setBorder(BorderFactory.createEmptyBorder());
     }
 
