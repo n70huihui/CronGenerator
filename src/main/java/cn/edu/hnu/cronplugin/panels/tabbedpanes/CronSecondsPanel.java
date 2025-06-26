@@ -35,7 +35,6 @@ import java.awt.event.ActionListener;
  * 秒标签
  */
 public class CronSecondsPanel extends AbstractPanel {
-
     // 单选组件
     private ButtonGroup radioGroup;
     // 单选按钮
@@ -81,15 +80,21 @@ public class CronSecondsPanel extends AbstractPanel {
 
     @Override
     protected void setupLayout() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
         // 将所有组件添加到主内容面板，并设置适当的间距
-        add(everySecondRadioButton);
-        add(Box.createVerticalStrut(15));
-        add(rangeRadioPanel);
-        add(Box.createVerticalStrut(15));
-        add(intervalRadioPanel);
-        add(Box.createVerticalStrut(15));
-        add(specifyRadioPanel);
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        contentPanel.add(everySecondRadioButton);
+        contentPanel.add(Box.createVerticalStrut(15));
+        contentPanel.add(rangeRadioPanel);
+        contentPanel.add(Box.createVerticalStrut(15));
+        contentPanel.add(intervalRadioPanel);
+        contentPanel.add(Box.createVerticalStrut(15));
+        contentPanel.add(specifyRadioPanel);
+
+        // 这里需要添加一个 contentPanel 并且放在 NORTH 位置，这样组件显示紧凑一些，好看点~
+        add(contentPanel, BorderLayout.NORTH);
     }
 
     @Override
