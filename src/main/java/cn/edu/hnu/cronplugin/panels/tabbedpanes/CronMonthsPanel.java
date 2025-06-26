@@ -1,6 +1,11 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
+import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -19,61 +24,52 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CronMonthsPanel extends AbstractPanel {
+    // 单选组件
     private ButtonGroup radioGroup;
-    private JRadioButton everyMonthRadio;
-    private JRadioButton noSpecifyRadio;
-    private JRadioButton rangeRadio;
-    private JRadioButton intervalRadio;
-    private JRadioButton specifyRadio;
-
-    // 范围选项的组件
-    private JTextField rangeFromField;
-    private JTextField rangeToField;
-
-    // 间隔选项的组件
-    private JTextField intervalStartField;
-    private JTextField intervalStepField;
-
-    // 指定选项的复选框（1-12月）
-    private JCheckBox[] monthCheckboxes;
+    // 单选按钮
+    private CronRadioButton everyMonthsRadioButton;
+    // 范围面板
+    private CronRangeRadioPanel rangeRadioPanel;
+    // 间隔面板
+    private CronIntervalRadioPanel intervalRadioPanel;
+    // 不指定面板
+    private CronRadioButton noSpecifyRadioButton;
+    // 复选框面板
+    private CronSpecifyRadioPanel specifyRadioPanel;
 
     @Override
     protected void initializeComponents() {
         // 创建单选按钮组
         radioGroup = new ButtonGroup();
 
-        // 选项1：每月执行 - 左对齐
-        everyMonthRadio = new JRadioButton("每月 允许的通配符[,-*/]", true);
-        everyMonthRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(everyMonthRadio);
+        // 选项1：每秒执行
+        everyMonthsRadioButton = new CronRadioButton("每秒 允许的通配符[,-*/]");
+        everyMonthsRadioButton.setSelected(true);
+        radioGroup.add(everyMonthsRadioButton);
 
-        // 选项2：不指定
-        noSpecifyRadio = new JRadioButton("不指定");
-        noSpecifyRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(noSpecifyRadio);
+        // 选项2：范围执行的单选按钮
+        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+                "1", "月到",
+                "2", "月",
+                5, 5
+        );
+        radioGroup.add(rangeRadioPanel.getRangeRadio());
 
-        // 选项3：范围执行的单选按钮
-        rangeRadio = new JRadioButton("周期从");
-        radioGroup.add(rangeRadio);
+        // 选项3：间隔执行的单选按钮
+        intervalRadioPanel = new CronIntervalRadioPanel("周期从",
+                "1", "月开始, 每",
+                "1", "月执行一次",
+                5, 5
+        );
+        radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
-        // 范围选项的输入框
-        rangeFromField = new JTextField("1", 3);
-        rangeToField = new JTextField("2", 3);
+        // 选项4：不指定
+        noSpecifyRadioButton = new CronRadioButton("不指定");
+        radioGroup.add(noSpecifyRadioButton);
 
-        // 选项4：间隔执行的单选按钮
-        intervalRadio = new JRadioButton("周期从");
-        radioGroup.add(intervalRadio);
-
-        // 间隔选项的输入框
-        intervalStartField = new JTextField("1", 3);
-        intervalStepField = new JTextField("1", 3);
-
-        // 选项5：指定月份的单选按钮
-        specifyRadio = new JRadioButton("指定");
-        radioGroup.add(specifyRadio);
-
-        // 初始化月份复选框数组（1-12）
-        monthCheckboxes = new JCheckBox[12];
+        // 选项5：指定秒数的单选按钮
+        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 1, 12, 1);
+        radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
     @Override
@@ -81,95 +77,20 @@ public class CronMonthsPanel extends AbstractPanel {
         setLayout(new BorderLayout());
 
         // 创建主内容面板
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-        // 选项3：范围 - 左对齐并包含组件
-        JPanel rangePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        rangePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        rangePanel.add(rangeRadio);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeFromField);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(new JLabel("到"));
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeToField);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(new JLabel("月"));
-
-        // 选项4：间隔 - 左对齐并包含组件
-        JPanel intervalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        intervalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        intervalPanel.add(intervalRadio);
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(intervalStartField);
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(new JLabel("月开始, 每"));
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(intervalStepField);
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(new JLabel("月执行一次"));
-
-        // 选项5：指定 - 复选框网格在右侧
-        JPanel specifyPanel = new JPanel(new BorderLayout());
-        specifyPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // 创建单选按钮面板
-        JPanel specifyRadioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        specifyRadioPanel.add(specifyRadio);
-
-        // 创建月份复选框网格
-        JPanel checkboxPanel = createMonthCheckboxGrid();
-
-        // 将单选按钮放在左侧（西），复选框放在中央
-        specifyPanel.add(specifyRadioPanel, BorderLayout.WEST);
-        specifyPanel.add(checkboxPanel, BorderLayout.CENTER);
-
-        // 将所有组件添加到主内容面板，并设置适当的间距
-        contentPanel.add(everyMonthRadio);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(noSpecifyRadio);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(rangePanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(intervalPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(specifyPanel);
+        JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
+                everyMonthsRadioButton,
+                rangeRadioPanel,
+                intervalRadioPanel,
+                noSpecifyRadioButton,
+                specifyRadioPanel
+        );
 
         add(contentPanel, BorderLayout.NORTH);
     }
 
-    private JPanel createMonthCheckboxGrid() {
-        JPanel gridPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 3));
-        gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 10));
-
-        // 创建1-12月的复选框
-        for (int i = 0; i < 12; i++) {
-            int monthValue = i + 1;
-            String text = String.format("%02d", monthValue);
-            JCheckBox checkbox = new JCheckBox(text);
-            checkbox.setHorizontalAlignment(SwingConstants.CENTER);
-            checkbox.setEnabled(false); // 初始状态为禁用
-
-            // 添加复选框变化监听器
-            checkbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                }
-            });
-
-            monthCheckboxes[i] = checkbox;
-            gridPanel.add(checkbox);
-        }
-
-        return gridPanel;
-    }
-
     @Override
     protected void setupEventHandlers() {
-        // 根据单选按钮选择启用/禁用组件
+        /*// 根据单选按钮选择启用/禁用组件
         ActionListener radioListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -196,10 +117,10 @@ public class CronMonthsPanel extends AbstractPanel {
         intervalStepField.addActionListener(fieldListener);
 
         // 设置初始状态
-        updateComponentStates();
+        updateComponentStates();*/
     }
 
-    private void updateComponentStates() {
+    /*private void updateComponentStates() {
         // 启用/禁用范围输入框
         rangeFromField.setEnabled(rangeRadio.isSelected());
         rangeToField.setEnabled(rangeRadio.isSelected());
@@ -215,5 +136,5 @@ public class CronMonthsPanel extends AbstractPanel {
                 checkbox.setEnabled(checkboxesEnabled);
             }
         }
-    }
+    }*/
 }
