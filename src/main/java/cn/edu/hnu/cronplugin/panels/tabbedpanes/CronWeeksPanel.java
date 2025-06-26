@@ -1,6 +1,12 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
+import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronLastWeekPanel;
+import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 import com.intellij.openapi.ui.ComboBox;
 
 import javax.swing.BorderFactory;
@@ -20,79 +26,58 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CronWeeksPanel extends AbstractPanel {
-
+    // 单选组件
     private ButtonGroup radioGroup;
-    private JRadioButton everyWeekRadio;
-    private JRadioButton noSpecifyRadio;
-    private JRadioButton rangeRadio;
-    private JRadioButton nthWeekRadio;
-    private JRadioButton lastWeekdayRadio;
-    private JRadioButton specifyRadio;
-
-    // 范围选项的组件
-    private JTextField rangeFromField;
-    private JTextField rangeToField;
-
-    // 第N周选项的组件
-    private JTextField nthWeekField;
-    private JTextField nthWeekdayField;
-
-    // 最后一个星期选项的组件
-    private ComboBox<String> lastWeekdayCombo;
-
-    // 指定选项的复选框（1-7，代表周日到周六）
-    private JCheckBox[] weekCheckboxes;
-
-    // 星期名称数组
-    private String[] weekdayNames;
+    // 单选按钮
+    private CronRadioButton everyWeeksRadioButton;
+    // 范围面板
+    private CronRangeRadioPanel rangeRadioPanel;
+    // 间隔面板
+    private CronIntervalRadioPanel intervalRadioPanel;
+    // 本月最后一个星期
+    private CronLastWeekPanel lastWeekDayPanel;
+    // 不指定
+    private CronRadioButton noSpecifyRadioButton;
+    // 复选框面板
+    private CronSpecifyRadioPanel specifyRadioPanel;
 
     @Override
     protected void initializeComponents() {
-        weekdayNames = new String[]{"日", "一", "二", "三", "四", "五", "六"};
-
         // 创建单选按钮组
         radioGroup = new ButtonGroup();
 
-        // 选项1：每周执行 - 左对齐
-        everyWeekRadio = new JRadioButton("每周 允许的通配符[,-*/L#]");
-        everyWeekRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(everyWeekRadio);
+        // 选项1：每秒执行
+        everyWeeksRadioButton = new CronRadioButton("每周 允许的通配符[,-*/L#]");
+        radioGroup.add(everyWeeksRadioButton);
 
-        // 选项2：不指定
-        noSpecifyRadio = new JRadioButton("不指定", true);
-        noSpecifyRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(noSpecifyRadio);
+        // 选项2：范围执行的单选按钮
+        rangeRadioPanel = new CronRangeRadioPanel("周期从第",
+                "1", "周到第",
+                "2", "周",
+                5, 5
+        );
+        radioGroup.add(rangeRadioPanel.getRangeRadio());
 
-        // 选项3：范围执行的单选按钮
-        rangeRadio = new JRadioButton("周期从星期");
-        radioGroup.add(rangeRadio);
+        // 选项3：间隔执行的单选按钮
+        intervalRadioPanel = new CronIntervalRadioPanel("第",
+                "1", "周的星期",
+                "1", "",
+                5, 5
+        );
+        radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
-        // 范围选项的输入框
-        rangeFromField = new JTextField("1", 3);
-        rangeToField = new JTextField("2", 3);
+        // 选项4：本月最后一个星期
+        lastWeekDayPanel = new CronLastWeekPanel("本月最后一个星期");
+        radioGroup.add(lastWeekDayPanel.getLastWeekdayRadio());
 
-        // 选项4：第N周执行的单选按钮
-        nthWeekRadio = new JRadioButton("第");
-        radioGroup.add(nthWeekRadio);
+        // 选项5：不指定
+        noSpecifyRadioButton = new CronRadioButton("不指定");
+        noSpecifyRadioButton.setSelected(true);
+        radioGroup.add(noSpecifyRadioButton);
 
-        // 第N周选项的输入框
-        nthWeekField = new JTextField("1", 3);
-        nthWeekdayField = new JTextField("1", 3);
-
-        // 选项5：本月最后一个星期
-        lastWeekdayRadio = new JRadioButton("本月最后一个星期");
-        radioGroup.add(lastWeekdayRadio);
-
-        // 最后一个星期选项的下拉框
-        lastWeekdayCombo = new ComboBox<>(weekdayNames);
-        lastWeekdayCombo.setSelectedIndex(0); // 默认选择周日
-
-        // 选项6：指定星期的单选按钮
-        specifyRadio = new JRadioButton("指定");
-        radioGroup.add(specifyRadio);
-
-        // 初始化星期复选框数组（1-7，代表周日到周六）
-        weekCheckboxes = new JCheckBox[7];
+        // 选项6：指定
+        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 1, 7, 1);
+        radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
     @Override
@@ -100,103 +85,21 @@ public class CronWeeksPanel extends AbstractPanel {
         setLayout(new BorderLayout());
 
         // 创建主内容面板
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-        // 选项3：范围 - 左对齐并包含组件
-        JPanel rangePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        rangePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        rangePanel.add(rangeRadio);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeFromField);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(new JLabel("到星期"));
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeToField);
-
-        // 选项4：第N周 - 左对齐并包含组件
-        JPanel nthWeekPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        nthWeekPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        nthWeekPanel.add(nthWeekRadio);
-        nthWeekPanel.add(Box.createHorizontalStrut(5));
-        nthWeekPanel.add(nthWeekField);
-        nthWeekPanel.add(Box.createHorizontalStrut(5));
-        nthWeekPanel.add(new JLabel("周的星期"));
-        nthWeekPanel.add(Box.createHorizontalStrut(5));
-        nthWeekPanel.add(nthWeekdayField);
-
-        // 选项5：最后一个星期 - 左对齐并包含组件
-        JPanel lastWeekdayPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        lastWeekdayPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        lastWeekdayPanel.add(lastWeekdayRadio);
-        lastWeekdayPanel.add(Box.createHorizontalStrut(5));
-        lastWeekdayPanel.add(lastWeekdayCombo);
-
-        // 选项6：指定 - 复选框网格在右侧
-        JPanel specifyPanel = new JPanel(new BorderLayout());
-        specifyPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // 创建单选按钮面板
-        JPanel specifyRadioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        specifyRadioPanel.add(specifyRadio);
-
-        // 创建星期复选框网格
-        JPanel checkboxPanel = createWeekCheckboxGrid();
-
-        // 将单选按钮放在左侧（西），复选框放在中央
-        specifyPanel.add(specifyRadioPanel, BorderLayout.WEST);
-        specifyPanel.add(checkboxPanel, BorderLayout.CENTER);
-
-        // 将所有组件添加到主内容面板，并设置适当的间距
-        contentPanel.add(everyWeekRadio);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(noSpecifyRadio);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(rangePanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(nthWeekPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(lastWeekdayPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(specifyPanel);
+        JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
+                everyWeeksRadioButton,
+                rangeRadioPanel,
+                intervalRadioPanel,
+                lastWeekDayPanel,
+                noSpecifyRadioButton,
+                specifyRadioPanel
+        );
 
         add(contentPanel, BorderLayout.NORTH);
     }
 
-    private JPanel createWeekCheckboxGrid() {
-        JPanel gridPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 3));
-        gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 10));
-
-        // 创建1-7的复选框（代表周日到周六）
-        for (int i = 0; i < 7; i++) {
-            String text = String.format("%02d", i + 1);
-            JCheckBox checkbox = new JCheckBox(text);
-            checkbox.setHorizontalAlignment(SwingConstants.CENTER);
-            checkbox.setEnabled(false); // 初始状态为禁用
-
-            // 添加工具提示显示星期名称
-            checkbox.setToolTipText(weekdayNames[i]);
-
-            // 添加复选框变化监听器
-            checkbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                }
-            });
-
-            weekCheckboxes[i] = checkbox;
-            gridPanel.add(checkbox);
-        }
-
-        return gridPanel;
-    }
-
     @Override
     protected void setupEventHandlers() {
-        // 根据单选按钮选择启用/禁用组件
+        /*// 根据单选按钮选择启用/禁用组件
         ActionListener radioListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -231,10 +134,10 @@ public class CronWeeksPanel extends AbstractPanel {
         });
 
         // 设置初始状态
-        updateComponentStates();
+        updateComponentStates();*/
     }
 
-    private void updateComponentStates() {
+/*    private void updateComponentStates() {
         // 启用/禁用范围输入框
         rangeFromField.setEnabled(rangeRadio.isSelected());
         rangeToField.setEnabled(rangeRadio.isSelected());
@@ -253,5 +156,5 @@ public class CronWeeksPanel extends AbstractPanel {
                 checkbox.setEnabled(checkboxesEnabled);
             }
         }
-    }
+    }*/
 }

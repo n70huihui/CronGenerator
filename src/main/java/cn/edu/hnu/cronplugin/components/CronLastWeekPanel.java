@@ -9,9 +9,9 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 
 /**
- * 最后一个工作日面板
+ * 最后一个星期面板
  */
-public class CronLastWeekDayPanel extends JPanel {
+public class CronLastWeekPanel extends JPanel {
 
     private JRadioButton lastWeekdayRadio;
 
@@ -19,7 +19,7 @@ public class CronLastWeekDayPanel extends JPanel {
 
     private String[] weekdayNames;
 
-    public CronLastWeekDayPanel(String description) {
+    public CronLastWeekPanel(String description) {
         // region 初始化组件
         this.weekdayNames = new String[]{"日", "一", "二", "三", "四", "五", "六"};
         this.lastWeekdayRadio = new JRadioButton(description);

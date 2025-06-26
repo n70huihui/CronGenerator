@@ -67,8 +67,8 @@ public class CronMonthsPanel extends AbstractPanel {
         noSpecifyRadioButton = new CronRadioButton("不指定");
         radioGroup.add(noSpecifyRadioButton);
 
-        // 选项5：指定秒数的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 1, 12, 1);
+        // 选项5：指定月的单选按钮
+        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 2, 6, 1);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
