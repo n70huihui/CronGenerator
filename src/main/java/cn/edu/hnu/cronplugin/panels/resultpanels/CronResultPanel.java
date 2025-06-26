@@ -1,13 +1,11 @@
 package cn.edu.hnu.cronplugin.panels.resultpanels;
 
 import cn.edu.hnu.cronplugin.components.resultcomponents.CronExpressionPanel;
-import cn.edu.hnu.cronplugin.components.resultcomponents.CronResultTablePanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 import com.intellij.ui.JBColor;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
@@ -17,7 +15,7 @@ import java.awt.BorderLayout;
  * Cron 表达式结果
  */
 public class CronResultPanel extends AbstractPanel {
-    // private CronResultTablePanel cronResultTablePanel;
+    // TODO private CronResultTablePanel cronResultTablePanel;
     private CronExpressionPanel cronExpressionPanel;
 
     /**
