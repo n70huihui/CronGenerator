@@ -1,6 +1,11 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
+import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,83 +23,60 @@ import java.util.Calendar;
 
 public class CronYearsPanel extends AbstractPanel {
 
+    // 单选组件
     private ButtonGroup radioGroup;
-    private JRadioButton everyYearRadio;
-    private JRadioButton noSpecifyRadio;
-    private JRadioButton rangeRadio;
-    private JRadioButton unUsedRadio;
-
-    // 范围选项的组件
-    private JTextField rangeFromField;
-    private JTextField rangeToField;
+    // 单选按钮
+    private CronRadioButton everyYearsRadioButton;
+    // 不指定
+    private CronRadioButton noSpecifyRadioButton;
+    // 范围面板
+    private CronRangeRadioPanel rangeRadioPanel;
+    // 不使用
+    private CronRadioButton unUsedRadioButton;
 
     @Override
     protected void initializeComponents() {
         // 创建单选按钮组
         radioGroup = new ButtonGroup();
 
-        // 选项1：每年执行（默认选中）
-        everyYearRadio = new JRadioButton("每年 允许的通配符[,-*/]", true);
-        everyYearRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(everyYearRadio);
+        // 选项1：每秒执行
+        everyYearsRadioButton = new CronRadioButton("每年 允许的通配符[,-*/]");
+        everyYearsRadioButton.setSelected(true);
+        radioGroup.add(everyYearsRadioButton);
 
         // 选项2：不指定
-        noSpecifyRadio = new JRadioButton("不指定");
-        noSpecifyRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(noSpecifyRadio);
+        noSpecifyRadioButton = new CronRadioButton("不指定");
+        radioGroup.add(noSpecifyRadioButton);
 
-        // 选项3：范围执行的单选按钮
-        rangeRadio = new JRadioButton("周期从");
-        radioGroup.add(rangeRadio);
+        // 选项3：周期执行
+        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+                "2025", "年到",
+                "9999", "年",
+                5, 5
+        );
+        radioGroup.add(rangeRadioPanel.getRangeRadio());
 
-        // 获取当前年份作为默认值
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        // 范围选项的输入框
-        rangeFromField = new JTextField(String.valueOf(currentYear), 6);
-        rangeToField = new JTextField(String.valueOf(currentYear + 1), 6);
-
-        // 选项4：不使用（支持 Unix Cron）
-        unUsedRadio = new JRadioButton("不使用");
-        unUsedRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(unUsedRadio);
+        // 选项4：不使用
+        unUsedRadioButton = new CronRadioButton("不使用");
+        radioGroup.add(unUsedRadioButton);
     }
 
     @Override
     protected void setupLayout() {
         setLayout(new BorderLayout());
-
         // 创建主内容面板
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-        // 选项3：范围 - 左对齐并包含组件
-        JPanel rangePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        rangePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        rangePanel.add(rangeRadio);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeFromField);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(new JLabel("到"));
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeToField);
-
-        // 将所有组件添加到主内容面板，并设置适当的间距
-        contentPanel.add(everyYearRadio);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(noSpecifyRadio);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(rangePanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(unUsedRadio);
-
+        JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
+                everyYearsRadioButton,
+                noSpecifyRadioButton,
+                rangeRadioPanel,
+                unUsedRadioButton
+        );
         add(contentPanel, BorderLayout.NORTH);
     }
 
     @Override
     protected void setupEventHandlers() {
-        // 根据单选按钮选择启用/禁用组件
+        /*// 根据单选按钮选择启用/禁用组件
         ActionListener radioListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,12 +99,12 @@ public class CronYearsPanel extends AbstractPanel {
         rangeToField.addActionListener(fieldListener);
 
         // 设置初始状态
-        updateComponentStates();
+        updateComponentStates();*/
     }
 
-    private void updateComponentStates() {
+/*    private void updateComponentStates() {
         // 启用/禁用范围输入框
         rangeFromField.setEnabled(rangeRadio.isSelected());
         rangeToField.setEnabled(rangeRadio.isSelected());
-    }
+    }*/
 }
