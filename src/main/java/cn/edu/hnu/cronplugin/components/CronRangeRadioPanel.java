@@ -75,6 +75,11 @@ public class CronRangeRadioPanel extends AbstractPanelComponent {
     }
 
     @Override
+    public void setupActionListener() {
+
+    }
+
+    @Override
     public void updateInnerComponentsAvailability() {
         boolean selected = this.rangeRadio.isSelected();
         this.rangeFromField.setEnabled(selected);

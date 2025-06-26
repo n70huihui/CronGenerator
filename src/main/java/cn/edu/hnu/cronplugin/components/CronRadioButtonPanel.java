@@ -47,6 +47,11 @@ public class CronRadioButtonPanel extends AbstractPanelComponent {
     }
 
     @Override
+    public void setupActionListener() {
+
+    }
+
+    @Override
     public void updateInnerComponentsAvailability() {
 
     }

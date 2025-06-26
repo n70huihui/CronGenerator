@@ -60,6 +60,11 @@ public class CronNearestWeekDayRadioPanel extends AbstractPanelComponent {
     }
 
     @Override
+    public void setupActionListener() {
+
+    }
+
+    @Override
     public void updateInnerComponentsAvailability() {
         this.nearestWeekDayField.setEnabled(this.nearestWeekDayRadio.isSelected());
     }

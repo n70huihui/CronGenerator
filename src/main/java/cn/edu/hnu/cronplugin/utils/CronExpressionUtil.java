@@ -140,7 +140,6 @@ public class CronExpressionUtil {
         if (!StringUtils.isNumeric(day)) {
             return;
         }
-        int dayNum = Integer.parseInt(day);
-        CRON_EXPRESSION.setItemByIndex(CronItemEnum.WEEK.getIndex(), (dayNum + 1) + "L");
+        CRON_EXPRESSION.setItemByIndex(CronItemEnum.WEEK.getIndex(), day + "L");
     }
 }

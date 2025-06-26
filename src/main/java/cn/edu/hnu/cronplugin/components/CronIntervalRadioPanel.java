@@ -74,6 +74,11 @@ public class CronIntervalRadioPanel extends AbstractPanelComponent {
     }
 
     @Override
+    public void setupActionListener() {
+
+    }
+
+    @Override
     public void updateInnerComponentsAvailability() {
         boolean selected = intervalRadio.isSelected();
         this.intervalFromField.setEnabled(selected);

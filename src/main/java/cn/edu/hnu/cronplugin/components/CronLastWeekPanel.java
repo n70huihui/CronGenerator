@@ -1,6 +1,7 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.listeners.ComboUpdateActionListener;
 import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.listeners.TextFieldUpdateDocumentListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
@@ -58,6 +59,12 @@ public class CronLastWeekPanel extends AbstractPanelComponent {
     }
 
     @Override
+    public void setupActionListener() {
+        ComboUpdateActionListener comboUpdateActionListener = new ComboUpdateActionListener(cronItemEnum, this);
+        this.lastWeekdayCombo.addActionListener(comboUpdateActionListener);
+    }
+
+    @Override
     public void updateInnerComponentsAvailability() {
         this.lastWeekdayCombo.setEnabled(this.lastWeekdayRadio.isSelected());
     }
@@ -66,7 +73,7 @@ public class CronLastWeekPanel extends AbstractPanelComponent {
     public void updateResultCronExpression(CronItemEnum cronItemEnum) {
         if (this.lastWeekdayRadio.isSelected()) {
             int index = this.lastWeekdayCombo.getSelectedIndex();
-            CronExpressionUtil.setLastWeekOfMonth(this.weekdayNames[index]);
+            CronExpressionUtil.setLastWeekOfMonth(String.valueOf(index + 1));
             CronResultPanelUtil.updateCronExpression();
         }
     }

@@ -153,6 +153,11 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
     }
 
     @Override
+    public void setupActionListener() {
+
+    }
+
+    @Override
     public void updateInnerComponentsAvailability() {
         boolean selected = this.specifyRadio.isSelected();
         for (JCheckBox[] jCheckBoxes : this.checkboxes) {
