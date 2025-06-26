@@ -102,59 +102,6 @@ public class CronDaysPanel extends AbstractPanel {
 
     @Override
     protected void setupEventHandlers() {
-        /*// 根据单选按钮选择启用/禁用组件
-        ActionListener radioListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateComponentStates();
-            }
-        };
 
-        everyDayRadio.addActionListener(radioListener);
-        noSpecifyRadio.addActionListener(radioListener);
-        rangeRadio.addActionListener(radioListener);
-        intervalRadio.addActionListener(radioListener);
-        nearestWeekdayRadio.addActionListener(radioListener);
-        lastDayRadio.addActionListener(radioListener);
-        lastWeekDayRadio.addActionListener(radioListener);
-        specifyRadio.addActionListener(radioListener);
-
-        // 为输入框添加变化监听器
-        ActionListener fieldListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        };
-
-        rangeFromField.addActionListener(fieldListener);
-        rangeToField.addActionListener(fieldListener);
-        intervalStartField.addActionListener(fieldListener);
-        intervalStepField.addActionListener(fieldListener);
-        nearestWeekdayField.addActionListener(fieldListener);
-
-        // 设置初始状态
-        updateComponentStates();*/
     }
-
-    /*private void updateComponentStates() {
-        // 启用/禁用范围输入框
-        rangeFromField.setEnabled(rangeRadio.isSelected());
-        rangeToField.setEnabled(rangeRadio.isSelected());
-
-        // 启用/禁用间隔输入框
-        intervalStartField.setEnabled(intervalRadio.isSelected());
-        intervalStepField.setEnabled(intervalRadio.isSelected());
-
-        // 启用/禁用最近工作日输入框
-        nearestWeekdayField.setEnabled(nearestWeekdayRadio.isSelected());
-
-        // 启用/禁用复选框
-        boolean checkboxesEnabled = specifyRadio.isSelected();
-        for (JCheckBox checkbox : dayCheckboxes) {
-            if (checkbox != null) {
-                checkbox.setEnabled(checkboxesEnabled);
-            }
-        }
-    }*/
 }

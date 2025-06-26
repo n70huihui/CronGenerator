@@ -87,62 +87,6 @@ public class CronWeeksPanel extends AbstractPanel {
 
     @Override
     protected void setupEventHandlers() {
-        /*// 根据单选按钮选择启用/禁用组件
-        ActionListener radioListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateComponentStates();
-            }
-        };
 
-        everyWeekRadio.addActionListener(radioListener);
-        noSpecifyRadio.addActionListener(radioListener);
-        rangeRadio.addActionListener(radioListener);
-        nthWeekRadio.addActionListener(radioListener);
-        lastWeekdayRadio.addActionListener(radioListener);
-        specifyRadio.addActionListener(radioListener);
-
-        // 为输入框添加变化监听器
-        ActionListener fieldListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        };
-
-        rangeFromField.addActionListener(fieldListener);
-        rangeToField.addActionListener(fieldListener);
-        nthWeekField.addActionListener(fieldListener);
-        nthWeekdayField.addActionListener(fieldListener);
-
-        // 为下拉框添加变化监听器
-        lastWeekdayCombo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
-        // 设置初始状态
-        updateComponentStates();*/
     }
-
-/*    private void updateComponentStates() {
-        // 启用/禁用范围输入框
-        rangeFromField.setEnabled(rangeRadio.isSelected());
-        rangeToField.setEnabled(rangeRadio.isSelected());
-
-        // 启用/禁用第N周输入框
-        nthWeekField.setEnabled(nthWeekRadio.isSelected());
-        nthWeekdayField.setEnabled(nthWeekRadio.isSelected());
-
-        // 启用/禁用最后一个星期下拉框
-        lastWeekdayCombo.setEnabled(lastWeekdayRadio.isSelected());
-
-        // 启用/禁用复选框
-        boolean checkboxesEnabled = specifyRadio.isSelected();
-        for (JCheckBox checkbox : weekCheckboxes) {
-            if (checkbox != null) {
-                checkbox.setEnabled(checkboxesEnabled);
-            }
-        }
-    }*/
 }

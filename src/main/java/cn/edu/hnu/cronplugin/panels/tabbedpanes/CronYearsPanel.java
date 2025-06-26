@@ -65,35 +65,6 @@ public class CronYearsPanel extends AbstractPanel {
 
     @Override
     protected void setupEventHandlers() {
-        /*// 根据单选按钮选择启用/禁用组件
-        ActionListener radioListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateComponentStates();
-            }
-        };
 
-        noSpecifyRadio.addActionListener(radioListener);
-        everyYearRadio.addActionListener(radioListener);
-        rangeRadio.addActionListener(radioListener);
-
-        // 为输入框添加变化监听器
-        ActionListener fieldListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        };
-
-        rangeFromField.addActionListener(fieldListener);
-        rangeToField.addActionListener(fieldListener);
-
-        // 设置初始状态
-        updateComponentStates();*/
     }
-
-/*    private void updateComponentStates() {
-        // 启用/禁用范围输入框
-        rangeFromField.setEnabled(rangeRadio.isSelected());
-        rangeToField.setEnabled(rangeRadio.isSelected());
-    }*/
 }
