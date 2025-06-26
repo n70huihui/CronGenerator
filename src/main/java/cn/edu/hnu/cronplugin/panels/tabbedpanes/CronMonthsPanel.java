@@ -4,6 +4,7 @@ import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
@@ -31,12 +32,12 @@ public class CronMonthsPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel("每秒 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.MONTH, "每秒 允许的通配符[,-*/]");
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
-        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+        rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.MONTH, "周期从",
                 "1", "月到",
                 "2", "月",
                 5, 5
@@ -44,7 +45,7 @@ public class CronMonthsPanel extends AbstractPanel {
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项3：间隔执行的单选按钮
-        intervalRadioPanel = new CronIntervalRadioPanel("周期从",
+        intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.MONTH, "周期从",
                 "1", "月开始, 每",
                 "1", "月执行一次",
                 5, 5
@@ -52,11 +53,11 @@ public class CronMonthsPanel extends AbstractPanel {
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：不指定
-        noSpecifyRadioPanel = new CronRadioButtonPanel("不指定");
+        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.MONTH, "不指定");
         radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项5：指定月的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 2, 6, 1);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.MONTH, "指定", 2, 6, 1);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 

@@ -35,12 +35,12 @@ public class CronSecondsPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel("每秒 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.SECOND, "每秒 允许的通配符[,-*/]");
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
-        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+        rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.SECOND, "周期从",
                 "1", "秒到",
                 "2", "秒",
                 5, 5
@@ -48,7 +48,7 @@ public class CronSecondsPanel extends AbstractPanel {
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项3：间隔执行的单选按钮
-        intervalRadioPanel = new CronIntervalRadioPanel("周期从",
+        intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.SECOND, "周期从",
                 "0", "秒开始, 每",
                 "1", "秒执行一次",
                 5, 5
@@ -56,7 +56,7 @@ public class CronSecondsPanel extends AbstractPanel {
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：指定秒数的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 6, 10, 0);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.SECOND, "指定", 6, 10, 0);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
@@ -76,9 +76,6 @@ public class CronSecondsPanel extends AbstractPanel {
 
     @Override
     protected void setupEventHandlers() {
-
-        RadioActionUpdateListener actionListener
-                = new RadioActionUpdateListener(CronItemEnum.SECOND);
         /*ActionListener updateActionListener = e -> {
             updateComponentStates();
             updateSeconds();

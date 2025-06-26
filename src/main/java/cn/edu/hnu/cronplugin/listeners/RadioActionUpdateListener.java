@@ -13,8 +13,11 @@ public class RadioActionUpdateListener implements ActionListener {
 
     private final CronItemEnum cronItemEnum;
 
-    public RadioActionUpdateListener(CronItemEnum cronItemEnum) {
+    private final AbstractPanelComponent component;
+
+    public RadioActionUpdateListener(CronItemEnum cronItemEnum, AbstractPanelComponent component) {
         this.cronItemEnum = cronItemEnum;
+        this.component = component;
     }
 
     public CronItemEnum getCronItemEnum() {
@@ -23,8 +26,7 @@ public class RadioActionUpdateListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        AbstractPanelComponent component = (AbstractPanelComponent) e.getSource();
-        component.updateInnerComponentsAvailability();
-        component.updateResultCronExpression(this.cronItemEnum);
+        this.component.updateInnerComponentsAvailability();
+        this.component.updateResultCronExpression(this.cronItemEnum);
     }
 }

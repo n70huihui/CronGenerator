@@ -8,6 +8,8 @@ import javax.swing.JPanel;
  * 抽象面板组件
  */
 public abstract class AbstractPanelComponent extends JPanel {
+    protected CronItemEnum cronItemEnum;
+    // public abstract void setupActionListener();
     /**
      * 更新内部组件的可用性
      */

@@ -1,5 +1,9 @@
 package cn.edu.hnu.cronplugin.components;
 
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
+import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -15,7 +19,7 @@ import java.util.List;
 /**
  * 复选框指定面板
  */
-public class CronSpecifyRadioPanel extends JPanel {
+public class CronSpecifyRadioPanel extends AbstractPanelComponent {
     private JRadioButton specifyRadio;
     // 统一用二维的
     private JCheckBox[][] checkboxes;
@@ -31,8 +35,9 @@ public class CronSpecifyRadioPanel extends JPanel {
      * @param cols 列
      * @param offset 显示数字的偏移量
      */
-    public CronSpecifyRadioPanel(String description, int rows, int cols, int offset) {
+    public CronSpecifyRadioPanel(CronItemEnum cronItemEnum, String description, int rows, int cols, int offset) {
         // region 初始化组件
+        this.cronItemEnum = cronItemEnum;
         this.specifyRadio = new JRadioButton(description);
         this.checkboxes = new JCheckBox[rows][cols];
         this.specifyRadioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -57,10 +62,11 @@ public class CronSpecifyRadioPanel extends JPanel {
      * @param displayRows 实际展示的行数
      * @param displayCols 实际展示的列数
      */
-    public CronSpecifyRadioPanel(String description,
+    public CronSpecifyRadioPanel(CronItemEnum cronItemEnum, String description,
                                  int rows, int cols, int offset,
                                  int displayRows, int displayCols) {
         // region 初始化组件
+        this.cronItemEnum = cronItemEnum;
         this.specifyRadio = new JRadioButton(description);
         this.checkboxes = new JCheckBox[rows][cols];
         this.specifyRadioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -121,6 +127,16 @@ public class CronSpecifyRadioPanel extends JPanel {
         return gridPanel;
     }
 
+    @Override
+    public void updateInnerComponentsAvailability() {
+        boolean selected = this.specifyRadio.isSelected();
+        for (JCheckBox[] jCheckBoxes : this.checkboxes) {
+            for (JCheckBox checkbox : jCheckBoxes) {
+                checkbox.setEnabled(selected);
+            }
+        }
+    }
+
     public JRadioButton getSpecifyRadio() {
         return specifyRadio;
     }
@@ -133,7 +149,7 @@ public class CronSpecifyRadioPanel extends JPanel {
      * 获取选中的多选框内容
      * @return
      */
-    public List<String> getSelectedCheckBoxes() {
+    private List<String> getSelectedCheckBoxes() {
         List<String> selectedCheckboxes = new ArrayList<>();
         for (JCheckBox[] jCheckBoxes : this.checkboxes) {
             for (JCheckBox checkbox : jCheckBoxes) {
@@ -143,5 +159,14 @@ public class CronSpecifyRadioPanel extends JPanel {
             }
         }
         return selectedCheckboxes;
+    }
+
+    @Override
+    public void updateResultCronExpression(CronItemEnum cronItemEnum) {
+        if (this.specifyRadio.isSelected()) {
+            List<String> selectedCheckboxes = getSelectedCheckBoxes();
+            CronExpressionUtil.setSpecify(cronItemEnum, selectedCheckboxes);
+            CronResultPanelUtil.updateCronExpression();
+        }
     }
 }

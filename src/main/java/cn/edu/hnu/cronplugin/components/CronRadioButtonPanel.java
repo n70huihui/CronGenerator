@@ -1,6 +1,8 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
+import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 
 import javax.swing.Box;
 import javax.swing.JRadioButton;
@@ -14,9 +16,10 @@ public class CronRadioButtonPanel extends AbstractPanelComponent {
 
     private JRadioButton radioButton;
 
-    public CronRadioButtonPanel(String description) {
+    public CronRadioButtonPanel(CronItemEnum cronItemEnum, String description) {
         // region 初始化内部组件
-        radioButton = new JRadioButton(description);
+        this.cronItemEnum = cronItemEnum;
+        this.radioButton = new JRadioButton(description);
         // endregion
 
         // region 设置布局
@@ -34,7 +37,21 @@ public class CronRadioButtonPanel extends AbstractPanelComponent {
 
     @Override
     public void updateResultCronExpression(CronItemEnum cronItemEnum) {
-
+        if (this.radioButton.isSelected()) {
+            String text = this.radioButton.getText();
+            if (text.startsWith("每")) {
+                CronExpressionUtil.setEvery(cronItemEnum);
+            } else if ("本月最后一天".equals(text)) {
+                CronExpressionUtil.setLastDayOfMonth();
+            } else if ("本月最后一个工作日".equals(text)) {
+                CronExpressionUtil.setLastWeekdayOfMonth();
+            } else if ("不指定".equals(text)) {
+                CronExpressionUtil.setNoSpecify(cronItemEnum);
+            } else if ("不使用".equals(text)) {
+                CronExpressionUtil.setUnUsed(cronItemEnum);
+            }
+            CronResultPanelUtil.updateCronExpression();
+        }
     }
 
     public JRadioButton getRadioButton() {

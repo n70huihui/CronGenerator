@@ -1,5 +1,9 @@
 package cn.edu.hnu.cronplugin.components;
 
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
+import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,17 +15,19 @@ import java.awt.FlowLayout;
 /**
  * 最近工作日单选框
  */
-public class CronNearestWeekDayRadioPanel extends JPanel {
+public class CronNearestWeekDayRadioPanel extends AbstractPanelComponent {
     private JRadioButton nearestWeekDayRadio;
     private JTextField nearestWeekDayField;
     private JLabel nearestWeekDayLabel;
 
-    public CronNearestWeekDayRadioPanel(String description,
+    public CronNearestWeekDayRadioPanel(CronItemEnum cronItemEnum, String description,
                                         String nearestWeekDayField, String nearestWeekDayLabel,
                                         int columns) {
         // region 初始化组件
+        this.cronItemEnum = cronItemEnum;
         this.nearestWeekDayRadio = new JRadioButton(description);
         this.nearestWeekDayField = new JTextField(nearestWeekDayField, columns);
+        this.nearestWeekDayField.setEnabled(false);
         this.nearestWeekDayLabel = new JLabel(nearestWeekDayLabel);
         // endregion
 
@@ -34,6 +40,19 @@ public class CronNearestWeekDayRadioPanel extends JPanel {
         add(Box.createHorizontalStrut(5));
         add(this.nearestWeekDayLabel);
         // endregion
+    }
+
+    @Override
+    public void updateInnerComponentsAvailability() {
+        this.nearestWeekDayField.setEnabled(this.nearestWeekDayRadio.isSelected());
+    }
+
+    @Override
+    public void updateResultCronExpression(CronItemEnum cronItemEnum) {
+        if (this.nearestWeekDayRadio.isSelected()) {
+            CronExpressionUtil.setNearestWeekdayOfMonth(this.nearestWeekDayField.getText());
+            CronResultPanelUtil.updateCronExpression();
+        }
     }
 
     public JRadioButton getNearestWeekDayRadio() {

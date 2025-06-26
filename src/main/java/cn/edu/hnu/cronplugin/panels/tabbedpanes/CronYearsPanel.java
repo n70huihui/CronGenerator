@@ -2,6 +2,7 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
@@ -28,16 +29,16 @@ public class CronYearsPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel("每年 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.YEAR, "每年 允许的通配符[,-*/]");
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：不指定
-        noSpecifyRadioPanel = new CronRadioButtonPanel("不指定");
+        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.YEAR, "不指定");
         radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项3：周期执行
-        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+        rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.YEAR, "周期从",
                 "2025", "年到",
                 "9999", "年",
                 5, 5
@@ -45,7 +46,7 @@ public class CronYearsPanel extends AbstractPanel {
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项4：不使用
-        unUsedRadioPanel = new CronRadioButtonPanel("不使用");
+        unUsedRadioPanel = new CronRadioButtonPanel(CronItemEnum.YEAR, "不使用");
         radioGroup.add(unUsedRadioPanel.getRadioButton());
     }
 

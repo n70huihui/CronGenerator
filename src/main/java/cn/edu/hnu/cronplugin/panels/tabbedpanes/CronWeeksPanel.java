@@ -5,6 +5,7 @@ import cn.edu.hnu.cronplugin.components.CronLastWeekPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
@@ -34,11 +35,11 @@ public class CronWeeksPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel("每周 允许的通配符[,-*/L#]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.WEEK, "每周 允许的通配符[,-*/L#]");
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
-        rangeRadioPanel = new CronRangeRadioPanel("周期从第",
+        rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.WEEK, "周期从第",
                 "1", "周到第",
                 "2", "周",
                 5, 5
@@ -46,7 +47,7 @@ public class CronWeeksPanel extends AbstractPanel {
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项3：间隔执行的单选按钮
-        intervalRadioPanel = new CronIntervalRadioPanel("第",
+        intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.WEEK, "第",
                 "1", "周的星期",
                 "1", "",
                 5, 5
@@ -54,16 +55,16 @@ public class CronWeeksPanel extends AbstractPanel {
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：本月最后一个星期
-        lastWeekDayPanel = new CronLastWeekPanel("本月最后一个星期");
+        lastWeekDayPanel = new CronLastWeekPanel(CronItemEnum.WEEK, "本月最后一个星期");
         radioGroup.add(lastWeekDayPanel.getLastWeekdayRadio());
 
         // 选项5：不指定
-        noSpecifyRadioPanel = new CronRadioButtonPanel("不指定");
+        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.WEEK, "不指定");
         noSpecifyRadioPanel.getRadioButton().setSelected(true);
         radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项6：指定
-        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 1, 7, 1);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.WEEK, "指定", 1, 7, 1);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 

@@ -4,6 +4,7 @@ import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
@@ -30,12 +31,12 @@ public class CronHoursPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel("每小时 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.HOUR, "每小时 允许的通配符[,-*/]");
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
-        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+        rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.HOUR, "周期从",
                 "1", "小时到",
                 "2", "小时",
                 5, 5
@@ -43,7 +44,7 @@ public class CronHoursPanel extends AbstractPanel {
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项3：间隔执行的单选按钮
-        intervalRadioPanel = new CronIntervalRadioPanel("周期从",
+        intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.HOUR, "周期从",
                 "0", "小时开始, 每",
                 "1", "小时执行一次",
                 5, 5
@@ -51,7 +52,7 @@ public class CronHoursPanel extends AbstractPanel {
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：指定小时的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 2, 12, 0);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.HOUR, "指定", 2, 12, 0);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
