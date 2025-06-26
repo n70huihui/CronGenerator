@@ -1,6 +1,5 @@
 package cn.edu.hnu.cronplugin.panels;
 
-import cn.edu.hnu.cronplugin.panels.resultpanels.CronResultPanel;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 import cn.edu.hnu.cronplugin.utils.TabbedPaneUtil;
 import com.intellij.ui.components.JBScrollPane;
@@ -9,7 +8,6 @@ import com.intellij.ui.components.JBTabbedPane;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 
 /**
  * 面板创建入口
