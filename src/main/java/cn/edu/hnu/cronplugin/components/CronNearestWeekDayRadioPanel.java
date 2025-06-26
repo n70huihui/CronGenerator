@@ -17,8 +17,8 @@ public class CronNearestWeekDayRadioPanel extends JPanel {
     private JLabel nearestWeekDayLabel;
 
     public CronNearestWeekDayRadioPanel(String description,
-                                        String nearestWeekDayField, int columns,
-                                        String nearestWeekDayLabel) {
+                                        String nearestWeekDayField, String nearestWeekDayLabel,
+                                        int columns) {
         // region 初始化组件
         this.nearestWeekDayRadio = new JRadioButton(description);
         this.nearestWeekDayField = new JTextField(nearestWeekDayField, columns);
