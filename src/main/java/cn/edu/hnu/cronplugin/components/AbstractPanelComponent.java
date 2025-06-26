@@ -14,10 +14,15 @@ public abstract class AbstractPanelComponent extends JPanel {
      */
     public abstract void setupItemListener();
     /**
+     * 设置文档监听器
+     */
+    public abstract void setupDocumentListener();
+    /**
      * 设置监听器
      */
     public void setupEventListener() {
         setupItemListener();
+        setupDocumentListener();
     }
     /**
      * 更新内部组件的可用性

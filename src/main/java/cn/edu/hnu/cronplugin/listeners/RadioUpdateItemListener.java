@@ -9,19 +9,15 @@ import java.awt.event.ItemListener;
 /**
  * 单选动作发生改变时，触发此监听器
  */
-public class RadioItemUpdateListener implements ItemListener {
+public class RadioUpdateItemListener implements ItemListener {
 
     private final CronItemEnum cronItemEnum;
 
     private final AbstractPanelComponent component;
 
-    public RadioItemUpdateListener(CronItemEnum cronItemEnum, AbstractPanelComponent component) {
+    public RadioUpdateItemListener(CronItemEnum cronItemEnum, AbstractPanelComponent component) {
         this.cronItemEnum = cronItemEnum;
         this.component = component;
-    }
-
-    public CronItemEnum getCronItemEnum() {
-        return cronItemEnum;
     }
 
     @Override

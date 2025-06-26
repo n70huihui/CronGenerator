@@ -1,7 +1,8 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
-import cn.edu.hnu.cronplugin.listeners.RadioItemUpdateListener;
+import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
+import cn.edu.hnu.cronplugin.listeners.TextFieldUpdateDocumentListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 
@@ -48,8 +49,14 @@ public class CronNearestWeekDayRadioPanel extends AbstractPanelComponent {
 
     @Override
     public void setupItemListener() {
-        RadioItemUpdateListener radioItemUpdateListener = new RadioItemUpdateListener(cronItemEnum, this);
-        this.nearestWeekDayRadio.addItemListener(radioItemUpdateListener);
+        RadioUpdateItemListener radioUpdateItemListener = new RadioUpdateItemListener(cronItemEnum, this);
+        this.nearestWeekDayRadio.addItemListener(radioUpdateItemListener);
+    }
+
+    @Override
+    public void setupDocumentListener() {
+        TextFieldUpdateDocumentListener textFieldUpdateDocumentListener = new TextFieldUpdateDocumentListener(cronItemEnum, this);
+        this.nearestWeekDayField.getDocument().addDocumentListener(textFieldUpdateDocumentListener);
     }
 
     @Override

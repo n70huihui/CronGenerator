@@ -1,7 +1,7 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
-import cn.edu.hnu.cronplugin.listeners.RadioItemUpdateListener;
+import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 
@@ -138,8 +138,18 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
 
     @Override
     public void setupItemListener() {
-        RadioItemUpdateListener radioItemUpdateListener = new RadioItemUpdateListener(cronItemEnum, this);
-        this.specifyRadio.addItemListener(radioItemUpdateListener);
+        RadioUpdateItemListener radioUpdateItemListener = new RadioUpdateItemListener(cronItemEnum, this);
+        this.specifyRadio.addItemListener(radioUpdateItemListener);
+        for (JCheckBox[] jCheckBoxes : this.checkboxes) {
+            for (JCheckBox checkbox : jCheckBoxes) {
+                checkbox.addItemListener(radioUpdateItemListener);
+            }
+        }
+    }
+
+    @Override
+    public void setupDocumentListener() {
+
     }
 
     @Override
