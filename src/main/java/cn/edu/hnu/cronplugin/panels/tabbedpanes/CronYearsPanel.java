@@ -1,26 +1,13 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
-import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
-import cn.edu.hnu.cronplugin.components.CronRadioButton;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
-import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Calendar;
 
 public class CronYearsPanel extends AbstractPanel {
 
@@ -29,11 +16,11 @@ public class CronYearsPanel extends AbstractPanel {
     // 单选面板
     private CronRadioButtonPanel radioButtonPanel;
     // 不指定
-    private CronRadioButton noSpecifyRadioButton;
+    private CronRadioButtonPanel noSpecifyRadioPanel;
     // 范围面板
     private CronRangeRadioPanel rangeRadioPanel;
     // 不使用
-    private CronRadioButton unUsedRadioButton;
+    private CronRadioButtonPanel unUsedRadioPanel;
 
     @Override
     protected void initializeComponents() {
@@ -46,8 +33,8 @@ public class CronYearsPanel extends AbstractPanel {
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：不指定
-        noSpecifyRadioButton = new CronRadioButton("不指定");
-        radioGroup.add(noSpecifyRadioButton);
+        noSpecifyRadioPanel = new CronRadioButtonPanel("不指定");
+        radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项3：周期执行
         rangeRadioPanel = new CronRangeRadioPanel("周期从",
@@ -58,8 +45,8 @@ public class CronYearsPanel extends AbstractPanel {
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项4：不使用
-        unUsedRadioButton = new CronRadioButton("不使用");
-        radioGroup.add(unUsedRadioButton);
+        unUsedRadioPanel = new CronRadioButtonPanel("不使用");
+        radioGroup.add(unUsedRadioPanel.getRadioButton());
     }
 
     @Override
@@ -68,9 +55,9 @@ public class CronYearsPanel extends AbstractPanel {
         // 创建主内容面板
         JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
                 radioButtonPanel,
-                noSpecifyRadioButton,
+                noSpecifyRadioPanel,
                 rangeRadioPanel,
-                unUsedRadioButton
+                unUsedRadioPanel
         );
         add(contentPanel, BorderLayout.NORTH);
     }

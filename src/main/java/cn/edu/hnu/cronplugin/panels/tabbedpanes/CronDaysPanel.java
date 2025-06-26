@@ -2,7 +2,6 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronNearestWeekDayRadioPanel;
-import cn.edu.hnu.cronplugin.components.CronRadioButton;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
@@ -25,11 +24,11 @@ public class CronDaysPanel extends AbstractPanel {
     // 最近的工作日
     private CronNearestWeekDayRadioPanel nearestWeekDayRadioPanel;
     // 本月最后一天
-    private CronRadioButton lastDayOfMonthRadioButton;
+    private CronRadioButtonPanel lastDayOfMonthRadioPanel;
     // 本月最后一个工作日
-    private CronRadioButton lastWeekDayOfMonthRadioButton;
+    private CronRadioButtonPanel lastWeekDayOfMonthRadioPanel;
     // 不指定
-    private CronRadioButton noSpecifyRadioButton;
+    private CronRadioButtonPanel noSpecifyRadioPanel;
     // 复选框面板
     private CronSpecifyRadioPanel specifyRadioPanel;
 
@@ -67,16 +66,16 @@ public class CronDaysPanel extends AbstractPanel {
         radioGroup.add(nearestWeekDayRadioPanel.getNearestWeekDayRadio());
 
         // 选项5：本月最后一天
-        lastDayOfMonthRadioButton = new CronRadioButton("本月最后一天");
-        radioGroup.add(lastDayOfMonthRadioButton);
+        lastDayOfMonthRadioPanel = new CronRadioButtonPanel("本月最后一天");
+        radioGroup.add(lastDayOfMonthRadioPanel.getRadioButton());
 
         // 选项6：本月最后一个工作日
-        lastWeekDayOfMonthRadioButton = new CronRadioButton("本月最后一个工作日");
-        radioGroup.add(lastWeekDayOfMonthRadioButton);
+        lastWeekDayOfMonthRadioPanel = new CronRadioButtonPanel("本月最后一个工作日");
+        radioGroup.add(lastWeekDayOfMonthRadioPanel.getRadioButton());
 
         // 选项7：不指定
-        noSpecifyRadioButton = new CronRadioButton("不指定");
-        radioGroup.add(noSpecifyRadioButton);
+        noSpecifyRadioPanel = new CronRadioButtonPanel("不指定");
+        radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项8：指定
         specifyRadioPanel = new CronSpecifyRadioPanel("指定", 1, 31, 1, 3, 13);
@@ -92,9 +91,9 @@ public class CronDaysPanel extends AbstractPanel {
                 rangeRadioPanel,
                 intervalRadioPanel,
                 nearestWeekDayRadioPanel,
-                lastDayOfMonthRadioButton,
-                lastWeekDayOfMonthRadioButton,
-                noSpecifyRadioButton,
+                lastDayOfMonthRadioPanel,
+                lastWeekDayOfMonthRadioPanel,
+                noSpecifyRadioPanel,
                 specifyRadioPanel
         );
         add(contentPanel, BorderLayout.NORTH);

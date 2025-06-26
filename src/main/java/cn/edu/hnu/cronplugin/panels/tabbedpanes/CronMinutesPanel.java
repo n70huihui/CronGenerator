@@ -1,7 +1,6 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
-import cn.edu.hnu.cronplugin.components.CronRadioButton;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;

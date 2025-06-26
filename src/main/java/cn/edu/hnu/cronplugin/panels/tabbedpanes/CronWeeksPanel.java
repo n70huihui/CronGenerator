@@ -2,7 +2,6 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronLastWeekPanel;
-import cn.edu.hnu.cronplugin.components.CronRadioButton;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
@@ -25,7 +24,7 @@ public class CronWeeksPanel extends AbstractPanel {
     // 本月最后一个星期
     private CronLastWeekPanel lastWeekDayPanel;
     // 不指定
-    private CronRadioButton noSpecifyRadioButton;
+    private CronRadioButtonPanel noSpecifyRadioPanel;
     // 复选框面板
     private CronSpecifyRadioPanel specifyRadioPanel;
 
@@ -59,9 +58,9 @@ public class CronWeeksPanel extends AbstractPanel {
         radioGroup.add(lastWeekDayPanel.getLastWeekdayRadio());
 
         // 选项5：不指定
-        noSpecifyRadioButton = new CronRadioButton("不指定");
-        noSpecifyRadioButton.setSelected(true);
-        radioGroup.add(noSpecifyRadioButton);
+        noSpecifyRadioPanel = new CronRadioButtonPanel("不指定");
+        noSpecifyRadioPanel.getRadioButton().setSelected(true);
+        radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项6：指定
         specifyRadioPanel = new CronSpecifyRadioPanel("指定", 1, 7, 1);
@@ -78,7 +77,7 @@ public class CronWeeksPanel extends AbstractPanel {
                 rangeRadioPanel,
                 intervalRadioPanel,
                 lastWeekDayPanel,
-                noSpecifyRadioButton,
+                noSpecifyRadioPanel,
                 specifyRadioPanel
         );
 

@@ -4,6 +4,8 @@ import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
+import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.listeners.RadioActionUpdateListener;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
@@ -75,6 +77,8 @@ public class CronSecondsPanel extends AbstractPanel {
     @Override
     protected void setupEventHandlers() {
 
+        RadioActionUpdateListener actionListener
+                = new RadioActionUpdateListener(CronItemEnum.SECOND);
         /*ActionListener updateActionListener = e -> {
             updateComponentStates();
             updateSeconds();
