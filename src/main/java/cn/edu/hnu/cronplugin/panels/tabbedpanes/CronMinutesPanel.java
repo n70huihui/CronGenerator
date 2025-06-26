@@ -5,6 +5,7 @@ import cn.edu.hnu.cronplugin.components.CronRadioButton;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -67,17 +68,12 @@ public class CronMinutesPanel extends AbstractPanel {
     protected void setupLayout() {
         setLayout(new BorderLayout());
         // 将所有组件添加到主内容面板，并设置适当的间距
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-        contentPanel.add(everyMinutesRadioButton);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(rangeRadioPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(intervalRadioPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(specifyRadioPanel);
-
+        JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
+                everyMinutesRadioButton,
+                rangeRadioPanel,
+                intervalRadioPanel,
+                specifyRadioPanel
+        );
         // 这里需要添加一个 contentPanel 并且放在 NORTH 位置，这样组件显示紧凑一些，好看点~
         add(contentPanel, BorderLayout.NORTH);
     }

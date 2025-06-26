@@ -6,6 +6,7 @@ import cn.edu.hnu.cronplugin.components.CronRadioButton;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -95,28 +96,17 @@ public class CronDaysPanel extends AbstractPanel {
     @Override
     protected void setupLayout() {
         setLayout(new BorderLayout());
-
         // 创建主内容面板
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-        // 将所有组件添加到主内容面板，并设置适当的间距
-        contentPanel.add(everyDaysRadioButton);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(rangeRadioPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(intervalRadioPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(nearestWeekDayRadioPanel);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(lastDayOfMonthRadioButton);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(lastWeekDayOfMonthRadioButton);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(noSpecifyRadioButton);
-        contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(specifyRadioPanel);
-
+        JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
+                everyDaysRadioButton,
+                rangeRadioPanel,
+                intervalRadioPanel,
+                nearestWeekDayRadioPanel,
+                lastDayOfMonthRadioButton,
+                lastWeekDayOfMonthRadioButton,
+                noSpecifyRadioButton,
+                specifyRadioPanel
+        );
         add(contentPanel, BorderLayout.NORTH);
     }
 
