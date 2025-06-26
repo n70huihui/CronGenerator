@@ -58,7 +58,7 @@ public class CronMinutesPanel extends AbstractPanel {
         );
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
-        // 选项4：指定秒数的单选按钮
+        // 选项4：指定分钟的单选按钮
         specifyRadioPanel = new CronSpecifyRadioPanel("指定", 6, 10, 0);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }

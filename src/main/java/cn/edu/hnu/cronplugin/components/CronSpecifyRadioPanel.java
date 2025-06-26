@@ -49,7 +49,7 @@ public class CronSpecifyRadioPanel extends JPanel {
         // 创建复选框网格
         for (int row = 0; row < rows; ++row) {
             for (int col = 0; col < cols; ++col) {
-                int value = row * 10 + col + offset;
+                int value = row * cols + col + offset;
                 String text = String.format("%02d", value);
                 JCheckBox checkbox = new JCheckBox(text);
                 checkbox.setHorizontalAlignment(SwingConstants.CENTER);

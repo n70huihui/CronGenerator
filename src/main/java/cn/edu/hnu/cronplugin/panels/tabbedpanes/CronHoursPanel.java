@@ -1,5 +1,9 @@
 package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
+import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
+import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 
 import javax.swing.BorderFactory;
@@ -18,23 +22,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CronHoursPanel extends AbstractPanel {
+    // 单选组件
     private ButtonGroup radioGroup;
-    private JRadioButton everyHourRadio;
-    private JRadioButton rangeRadio;
-    private JRadioButton intervalRadio;
-    private JRadioButton specifyRadio;
-
-    // 范围选项的组件
-    private JTextField rangeFromField;
-    private JTextField rangeToField;
-
-    // 间隔选项的组件
-    private JTextField intervalStartField;
-    private JTextField intervalStepField;
-
-    // 指定选项的复选框（分为上午和下午）
-    private JCheckBox[] amCheckboxes; // 上午 00-11
-    private JCheckBox[] pmCheckboxes; // 下午 12-23
+    // 单选按钮
+    private CronRadioButton everyHoursRadioButton;
+    // 范围面板
+    private CronRangeRadioPanel rangeRadioPanel;
+    // 间隔面板
+    private CronIntervalRadioPanel intervalRadioPanel;
+    // 复选框面板
+    private CronSpecifyRadioPanel specifyRadioPanel;
 
     @Override
     protected void initializeComponents() {
@@ -42,167 +39,54 @@ public class CronHoursPanel extends AbstractPanel {
         // 创建单选按钮组
         radioGroup = new ButtonGroup();
 
-        // 选项1：每小时执行 - 左对齐
-        everyHourRadio = new JRadioButton("每小时 允许的通配符[,-*/]", true);
-        everyHourRadio.setAlignmentX(Component.LEFT_ALIGNMENT);
-        radioGroup.add(everyHourRadio);
+        // 选项1：每秒执行
+        everyHoursRadioButton = new CronRadioButton("每小时 允许的通配符[,-*/]");
+        everyHoursRadioButton.setSelected(true);
+        radioGroup.add(everyHoursRadioButton);
 
         // 选项2：范围执行的单选按钮
-        rangeRadio = new JRadioButton("周期从");
-        radioGroup.add(rangeRadio);
-
-        // 范围选项的输入框
-        rangeFromField = new JTextField("0", 3);
-        rangeToField = new JTextField("2", 3);
+        rangeRadioPanel = new CronRangeRadioPanel("周期从",
+                "1", "小时到",
+                "2", "小时",
+                5, 5
+        );
+        radioGroup.add(rangeRadioPanel.getRangeRadio());
 
         // 选项3：间隔执行的单选按钮
-        intervalRadio = new JRadioButton("周期从");
-        radioGroup.add(intervalRadio);
-
-        // 间隔选项的输入框
-        intervalStartField = new JTextField("0", 3);
-        intervalStepField = new JTextField("1", 3);
+        intervalRadioPanel = new CronIntervalRadioPanel("周期从",
+                "0", "小时开始, 每",
+                "1", "小时执行一次",
+                5, 5
+        );
+        radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：指定小时的单选按钮
-        specifyRadio = new JRadioButton("指定");
-        radioGroup.add(specifyRadio);
-
-        // 初始化小时复选框数组
-        amCheckboxes = new JCheckBox[12]; // 00-11
-        pmCheckboxes = new JCheckBox[12]; // 12-23
+        specifyRadioPanel = new CronSpecifyRadioPanel("指定", 2, 12, 0);
+        radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
     @Override
     protected void setupLayout() {
         setLayout(new BorderLayout());
-
-        // 创建主内容面板
+        // 将所有组件添加到主内容面板，并设置适当的间距
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        // 选项2：范围 - 左对齐并包含组件
-        JPanel rangePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        rangePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        rangePanel.add(rangeRadio);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeFromField);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(new JLabel("到"));
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(rangeToField);
-        rangePanel.add(Box.createHorizontalStrut(5));
-        rangePanel.add(new JLabel("小时"));
-
-        // 选项3：间隔 - 左对齐并包含组件
-        JPanel intervalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        intervalPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        intervalPanel.add(intervalRadio);
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(intervalStartField);
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(new JLabel("小时开始, 每"));
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(intervalStepField);
-        intervalPanel.add(Box.createHorizontalStrut(5));
-        intervalPanel.add(new JLabel("小时执行一次"));
-
-        // 选项4：指定 - 复选框网格在右侧
-        JPanel specifyPanel = new JPanel(new BorderLayout());
-        specifyPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        // 创建单选按钮面板
-        JPanel specifyRadioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        specifyRadioPanel.add(specifyRadio);
-
-        // 创建小时复选框网格
-        JPanel checkboxPanel = createHourCheckboxGrid();
-
-        // 将单选按钮放在左侧（西），复选框放在中央
-        specifyPanel.add(specifyRadioPanel, BorderLayout.WEST);
-        specifyPanel.add(checkboxPanel, BorderLayout.CENTER);
-
-        // 将所有组件添加到主内容面板，并设置适当的间距
-        contentPanel.add(everyHourRadio);
+        contentPanel.add(everyHoursRadioButton);
         contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(rangePanel);
+        contentPanel.add(rangeRadioPanel);
         contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(intervalPanel);
+        contentPanel.add(intervalRadioPanel);
         contentPanel.add(Box.createVerticalStrut(15));
-        contentPanel.add(specifyPanel);
+        contentPanel.add(specifyRadioPanel);
 
+        // 这里需要添加一个 contentPanel 并且放在 NORTH 位置，这样组件显示紧凑一些，好看点~
         add(contentPanel, BorderLayout.NORTH);
-    }
-
-    private JPanel createHourCheckboxGrid() {
-        JPanel gridPanel = new JPanel();
-        gridPanel.setLayout(new BoxLayout(gridPanel, BoxLayout.Y_AXIS));
-        gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 10));
-
-        // 创建上午标签和复选框行
-        JPanel amPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 3));
-        amPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JLabel amLabel = new JLabel("上午:");
-        amPanel.add(amLabel);
-        amPanel.add(Box.createHorizontalStrut(5));
-
-        // 创建上午复选框 (00-11)
-        for (int i = 0; i < 12; i++) {
-            String text = String.format("%02d", i);
-            JCheckBox checkbox = new JCheckBox(text);
-            checkbox.setEnabled(false); // 初始状态为禁用
-
-            // 添加复选框变化监听器
-            checkbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-
-            amCheckboxes[i] = checkbox;
-            amPanel.add(checkbox);
-        }
-
-        // 创建下午标签和复选框行
-        JPanel pmPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 3));
-        pmPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JLabel pmLabel = new JLabel("下午:");
-        pmPanel.add(pmLabel);
-        pmPanel.add(Box.createHorizontalStrut(5));
-
-        // 创建下午复选框 (12-23)
-        for (int i = 0; i < 12; i++) {
-            String text = String.format("%02d", i + 12);
-            JCheckBox checkbox = new JCheckBox(text);
-            checkbox.setEnabled(false); // 初始状态为禁用
-
-            // 添加复选框变化监听器
-            checkbox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-
-            pmCheckboxes[i] = checkbox;
-            pmPanel.add(checkbox);
-        }
-
-        // 将上午和下午面板添加到主网格面板
-        gridPanel.add(amPanel);
-        gridPanel.add(Box.createVerticalStrut(5));
-        gridPanel.add(pmPanel);
-
-        return gridPanel;
     }
 
     @Override
     protected void setupEventHandlers() {
-        // 根据单选按钮选择启用/禁用组件
+        /*// 根据单选按钮选择启用/禁用组件
         ActionListener radioListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -228,10 +112,10 @@ public class CronHoursPanel extends AbstractPanel {
         intervalStepField.addActionListener(fieldListener);
 
         // 设置初始状态
-        updateComponentStates();
+        updateComponentStates();*/
     }
 
-    private void updateComponentStates() {
+    /*private void updateComponentStates() {
         // 启用/禁用范围输入框
         rangeFromField.setEnabled(rangeRadio.isSelected());
         rangeToField.setEnabled(rangeRadio.isSelected());
@@ -256,5 +140,5 @@ public class CronHoursPanel extends AbstractPanel {
                 checkbox.setEnabled(checkboxesEnabled);
             }
         }
-    }
+    }*/
 }
