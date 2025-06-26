@@ -1,5 +1,6 @@
-package cn.edu.hnu.cronplugin.components;
+package cn.edu.hnu.cronplugin.components.tabbedcomponents;
 
+import cn.edu.hnu.cronplugin.components.AbstractPanelComponent;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
