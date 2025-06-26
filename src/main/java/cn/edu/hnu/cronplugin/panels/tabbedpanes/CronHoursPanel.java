@@ -2,31 +2,21 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CronHoursPanel extends AbstractPanel {
     // 单选组件
     private ButtonGroup radioGroup;
-    // 单选按钮
-    private CronRadioButton everyHoursRadioButton;
+    // 单选面板
+    private CronRadioButtonPanel radioButtonPanel;
     // 范围面板
     private CronRangeRadioPanel rangeRadioPanel;
     // 间隔面板
@@ -41,9 +31,9 @@ public class CronHoursPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        everyHoursRadioButton = new CronRadioButton("每小时 允许的通配符[,-*/]");
-        everyHoursRadioButton.setSelected(true);
-        radioGroup.add(everyHoursRadioButton);
+        radioButtonPanel = new CronRadioButtonPanel("每小时 允许的通配符[,-*/]");
+        radioButtonPanel.getRadioButton().setSelected(true);
+        radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
         rangeRadioPanel = new CronRangeRadioPanel("周期从",
@@ -71,7 +61,7 @@ public class CronHoursPanel extends AbstractPanel {
         setLayout(new BorderLayout());
         // 将所有组件添加到主内容面板，并设置适当的间距
         JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
-                everyHoursRadioButton,
+                radioButtonPanel,
                 rangeRadioPanel,
                 intervalRadioPanel,
                 specifyRadioPanel

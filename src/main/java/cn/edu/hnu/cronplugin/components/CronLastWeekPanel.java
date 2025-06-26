@@ -9,7 +9,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 
 /**
- * 最后一个星期面板
+ * 最后一个星期N面板
  */
 public class CronLastWeekPanel extends JPanel {
 

@@ -2,6 +2,7 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
@@ -25,8 +26,8 @@ public class CronYearsPanel extends AbstractPanel {
 
     // 单选组件
     private ButtonGroup radioGroup;
-    // 单选按钮
-    private CronRadioButton everyYearsRadioButton;
+    // 单选面板
+    private CronRadioButtonPanel radioButtonPanel;
     // 不指定
     private CronRadioButton noSpecifyRadioButton;
     // 范围面板
@@ -40,9 +41,9 @@ public class CronYearsPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        everyYearsRadioButton = new CronRadioButton("每年 允许的通配符[,-*/]");
-        everyYearsRadioButton.setSelected(true);
-        radioGroup.add(everyYearsRadioButton);
+        radioButtonPanel = new CronRadioButtonPanel("每年 允许的通配符[,-*/]");
+        radioButtonPanel.getRadioButton().setSelected(true);
+        radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：不指定
         noSpecifyRadioButton = new CronRadioButton("不指定");
@@ -66,7 +67,7 @@ public class CronYearsPanel extends AbstractPanel {
         setLayout(new BorderLayout());
         // 创建主内容面板
         JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
-                everyYearsRadioButton,
+                radioButtonPanel,
                 noSpecifyRadioButton,
                 rangeRadioPanel,
                 unUsedRadioButton

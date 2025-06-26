@@ -3,31 +3,21 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronNearestWeekDayRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CronDaysPanel extends AbstractPanel {
     // 单选组件
     private ButtonGroup radioGroup;
-    // 单选按钮
-    private CronRadioButton everyDaysRadioButton;
+    // 单选面板
+    private CronRadioButtonPanel radioButtonPanel;
     // 范围面板
     private CronRangeRadioPanel rangeRadioPanel;
     // 间隔面板
@@ -50,9 +40,9 @@ public class CronDaysPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每日执行
-        everyDaysRadioButton = new CronRadioButton("每日 允许的通配符[,-*/LW]");
-        everyDaysRadioButton.setSelected(true);
-        radioGroup.add(everyDaysRadioButton);
+        radioButtonPanel = new CronRadioButtonPanel("每日 允许的通配符[,-*/LW]");
+        radioButtonPanel.getRadioButton().setSelected(true);
+        radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
         rangeRadioPanel = new CronRangeRadioPanel("周期从",
@@ -98,7 +88,7 @@ public class CronDaysPanel extends AbstractPanel {
         setLayout(new BorderLayout());
         // 创建主内容面板
         JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
-                everyDaysRadioButton,
+                radioButtonPanel,
                 rangeRadioPanel,
                 intervalRadioPanel,
                 nearestWeekDayRadioPanel,

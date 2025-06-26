@@ -2,32 +2,21 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.CronIntervalRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronRadioButton;
+import cn.edu.hnu.cronplugin.components.CronRadioButtonPanel;
 import cn.edu.hnu.cronplugin.components.CronRangeRadioPanel;
 import cn.edu.hnu.cronplugin.components.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CronMonthsPanel extends AbstractPanel {
     // 单选组件
     private ButtonGroup radioGroup;
-    // 单选按钮
-    private CronRadioButton everyMonthsRadioButton;
+    // 单选面板
+    private CronRadioButtonPanel radioButtonPanel;
     // 范围面板
     private CronRangeRadioPanel rangeRadioPanel;
     // 间隔面板
@@ -43,9 +32,9 @@ public class CronMonthsPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        everyMonthsRadioButton = new CronRadioButton("每秒 允许的通配符[,-*/]");
-        everyMonthsRadioButton.setSelected(true);
-        radioGroup.add(everyMonthsRadioButton);
+        radioButtonPanel = new CronRadioButtonPanel("每秒 允许的通配符[,-*/]");
+        radioButtonPanel.getRadioButton().setSelected(true);
+        radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：范围执行的单选按钮
         rangeRadioPanel = new CronRangeRadioPanel("周期从",
@@ -78,7 +67,7 @@ public class CronMonthsPanel extends AbstractPanel {
 
         // 创建主内容面板
         JPanel contentPanel = ContentPanelUtil.assembledContentPanel(
-                everyMonthsRadioButton,
+                radioButtonPanel,
                 rangeRadioPanel,
                 intervalRadioPanel,
                 noSpecifyRadioButton,
