@@ -1,6 +1,7 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.listeners.RadioItemUpdateListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 
@@ -51,6 +52,10 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
         add(specifyRadioPanel, BorderLayout.WEST);
         add(checkboxPanel, BorderLayout.CENTER);
         // endregion
+
+        // region 设置监听器
+        setupEventListener();
+        // endregion
     }
 
     /**
@@ -79,6 +84,10 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
         setAlignmentX(Component.LEFT_ALIGNMENT);
         add(specifyRadioPanel, BorderLayout.WEST);
         add(checkboxPanel, BorderLayout.CENTER);
+        // endregion
+
+        // region 设置监听器
+        setupEventListener();
         // endregion
     }
 
@@ -125,6 +134,12 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
         }
 
         return gridPanel;
+    }
+
+    @Override
+    public void setupItemListener() {
+        RadioItemUpdateListener radioItemUpdateListener = new RadioItemUpdateListener(cronItemEnum, this);
+        this.specifyRadio.addItemListener(radioItemUpdateListener);
     }
 
     @Override

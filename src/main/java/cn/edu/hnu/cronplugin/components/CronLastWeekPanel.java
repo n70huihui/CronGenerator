@@ -1,12 +1,12 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.listeners.RadioItemUpdateListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 import com.intellij.openapi.ui.ComboBox;
 
 import javax.swing.Box;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -39,6 +39,16 @@ public class CronLastWeekPanel extends AbstractPanelComponent {
         add(Box.createHorizontalStrut(5));
         add(lastWeekdayCombo);
         // endregion
+
+        // region 设置监听器
+        setupEventListener();
+        // endregion
+    }
+
+    @Override
+    public void setupItemListener() {
+        RadioItemUpdateListener radioItemUpdateListener = new RadioItemUpdateListener(cronItemEnum, this);
+        this.lastWeekdayRadio.addItemListener(radioItemUpdateListener);
     }
 
     @Override

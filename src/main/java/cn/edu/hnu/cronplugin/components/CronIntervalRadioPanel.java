@@ -1,12 +1,12 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import cn.edu.hnu.cronplugin.listeners.RadioItemUpdateListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import java.awt.Component;
@@ -54,6 +54,15 @@ public class CronIntervalRadioPanel extends AbstractPanelComponent {
         add(this.intervalToLabel);
         // endregion
 
+        // region 设置监听器
+        setupEventListener();
+        // endregion
+    }
+
+    @Override
+    public void setupItemListener() {
+        RadioItemUpdateListener radioItemUpdateListener = new RadioItemUpdateListener(cronItemEnum, this);
+        this.intervalRadio.addItemListener(radioItemUpdateListener);
     }
 
     @Override

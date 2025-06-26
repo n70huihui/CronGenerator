@@ -9,7 +9,16 @@ import javax.swing.JPanel;
  */
 public abstract class AbstractPanelComponent extends JPanel {
     protected CronItemEnum cronItemEnum;
-    // public abstract void setupActionListener();
+    /**
+     * 设置选项监听器
+     */
+    public abstract void setupItemListener();
+    /**
+     * 设置监听器
+     */
+    public void setupEventListener() {
+        setupItemListener();
+    }
     /**
      * 更新内部组件的可用性
      */
