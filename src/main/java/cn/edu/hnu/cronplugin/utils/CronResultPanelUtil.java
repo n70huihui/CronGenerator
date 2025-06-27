@@ -16,7 +16,10 @@ public class CronResultPanelUtil {
     }
 
     public static void updateCronExpression() {
+        // 更新面板显示的表达式
         CRON_RESULT_PANEL.setCronExpression(CronExpressionUtil.getCronExpression());
+        // 更新执行时间
+        CRON_RESULT_PANEL.setExecutionTime(CronExpressionUtil.getNext5Executions());
     }
 
     public static void setCronExpression(String cronExpression) {

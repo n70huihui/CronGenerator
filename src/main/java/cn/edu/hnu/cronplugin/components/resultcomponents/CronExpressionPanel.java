@@ -28,7 +28,7 @@ public class CronExpressionPanel extends AbstractPanelComponent {
 
         cronExpressionField = new JTextField(CronExpressionUtil.getCronExpression());
         cronExpressionField.setEditable(false);
-        cronExpressionField.setColumns(30);
+        cronExpressionField.setColumns(25);
         Font currentFont = cronExpressionField.getFont();
         Font newFont = currentFont.deriveFont(12f);
         cronExpressionField.setFont(newFont);

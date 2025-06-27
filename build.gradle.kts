@@ -24,6 +24,7 @@ dependencies {
         // Add necessary plugin dependencies for compilation here, example:
         // bundledPlugin("com.intellij.java")
     }
+    implementation("com.cronutils:cron-utils:9.2.0")
 }
 
 intellijPlatform {

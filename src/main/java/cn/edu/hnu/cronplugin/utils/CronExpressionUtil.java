@@ -2,9 +2,19 @@ package cn.edu.hnu.cronplugin.utils;
 
 import cn.edu.hnu.cronplugin.cron.CronExpression;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import com.cronutils.model.Cron;
+import com.cronutils.model.CronType;
+import com.cronutils.model.definition.CronDefinitionBuilder;
+import com.cronutils.model.time.ExecutionTime;
+import com.cronutils.parser.CronParser;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 /**
@@ -15,6 +25,10 @@ public class CronExpressionUtil {
     private CronExpressionUtil() {}
 
     private static final CronExpression CRON_EXPRESSION = new CronExpression();
+
+    private static final CronParser CRON_PARSER = new CronParser(
+            CronDefinitionBuilder.instanceDefinitionFor(CronType.QUARTZ)
+    );
 
     public static CronExpression getCronExpressionInstance() {
         return CRON_EXPRESSION;
@@ -142,4 +156,37 @@ public class CronExpressionUtil {
         }
         CRON_EXPRESSION.setItemByIndex(CronItemEnum.WEEK.getIndex(), day + "L");
     }
+
+    /**
+     * 获取接下来 5 次执行时间
+     * @return 执行时间列表（格式：yyyy-MM-dd HH:mm:ss）
+     */
+    public static List<String> getNext5Executions() {
+        String cronExpression = CRON_EXPRESSION.getExpression();
+        List<String> results = new ArrayList<>();
+        try {
+            Cron cron = CRON_PARSER.parse(cronExpression);
+            ExecutionTime execTime = ExecutionTime.forCron(cron);
+
+            ZonedDateTime now = ZonedDateTime.now(TimeZone.getDefault().toZoneId());
+            for (int i = 0; i < 5; i++) {
+                Optional<ZonedDateTime> nextOpt = execTime.nextExecution(now);
+                if (nextOpt.isEmpty()) {
+                    break; // 无后续时间则终止
+                }
+                ZonedDateTime next = nextOpt.get();
+                results.add(next.format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                ));
+                now = next; // 以本次时间为基础计算下一次
+            }
+        } catch (Exception e) {
+            // 捕获异常信息
+            results.clear();
+            results.add(e.getMessage());
+        }
+        return results;
+    }
+
+
 }
