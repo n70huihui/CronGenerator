@@ -5,14 +5,25 @@
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>CronPlugin</name>
+    <name>CronGenerator</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor url="https://github.com/n70huihui">n70huihui 热心市民灰灰</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[]]></description>
+    <description><![CDATA[
+<h3>Cron表达式生成插件</h3>
+<p>专为开发者设计的轻量级工具，帮助您在IDE中快速生成Cron表达式</p>
+
+<b>核心功能：</b>
+<ul>
+  <li><b>可视化配置</b>：通过图形界面选择时间规则（秒/分/时/日/月/周/年），自动生成Cron表达式</li>
+  <li><b>实时预览</b>：动态展示未来5次执行时间，确保调度逻辑准确</li>
+</ul>
+
+<small>无需切换浏览器，在IDE内高效管理您的定时任务</small>
+]]></description>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
