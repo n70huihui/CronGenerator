@@ -2,6 +2,7 @@ package cn.edu.hnu.cronplugin.utils;
 
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronDaysPanel;
+import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronHelpPanel;
 import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronHoursPanel;
 import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronMinutesPanel;
 import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronMonthsPanel;
@@ -28,6 +29,7 @@ public class TabbedPaneUtil {
         panelMap.put("月", new CronMonthsPanel());
         panelMap.put("周", new CronWeeksPanel());
         panelMap.put("年", new CronYearsPanel());
+        panelMap.put("帮助", new CronHelpPanel());
     }
 
     public static AbstractPanel getSubPanels(String name) {

@@ -21,7 +21,7 @@ public class CronMainBuilderPanel extends AbstractPanel {
         tabbedPane = new JBTabbedPane();
 
         // 添加标签页
-        String[] tabNames = {"秒", "分钟", "小时", "日", "月", "周", "年"};
+        String[] tabNames = {"秒", "分钟", "小时", "日", "月", "周", "年", "帮助"};
         for (String tabName : tabNames) {
             AbstractPanel subPanel = TabbedPaneUtil.getSubPanels(tabName);
             // 设置滚动面板

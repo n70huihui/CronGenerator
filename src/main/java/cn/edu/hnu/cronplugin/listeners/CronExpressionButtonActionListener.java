@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 /**
  * Cron 表达式键入按钮监听器
  */
+@Deprecated(since = "由Built-In Button代替")
 public class CronExpressionButtonActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
