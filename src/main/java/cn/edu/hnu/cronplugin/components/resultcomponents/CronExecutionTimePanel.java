@@ -49,7 +49,7 @@ public class CronExecutionTimePanel extends JPanel {
         }
         // 有异常
         if (executionTimes.size() == 1) {
-            String exceptionMsg = executionTimes.getFirst();
+            String exceptionMsg = executionTimes.get(0);
             // 处理异常信息，显示换行，否则会显示在一行，不方便查看
             exceptionMsg = exceptionMsg.replaceAll("\\. ", ".<br>");
             this.timeLabels[0].setText("<html>" + exceptionMsg + "</html>");
