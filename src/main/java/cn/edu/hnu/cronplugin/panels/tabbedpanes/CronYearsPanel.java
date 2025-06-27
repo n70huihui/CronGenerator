@@ -28,9 +28,9 @@ public class CronYearsPanel extends AbstractPanel {
         // 创建单选按钮组
         radioGroup = new ButtonGroup();
 
-        // 选项1：每秒执行
+        // 选项1：每年执行
         radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.YEAR, "每年 允许的通配符[,-*/]");
-        radioButtonPanel.getRadioButton().setSelected(true);
+        // radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
         // 选项2：不指定
@@ -45,8 +45,9 @@ public class CronYearsPanel extends AbstractPanel {
         );
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
-        // 选项4：不使用
+        // 选项4：不使用，默认六个字段
         unUsedRadioPanel = new CronRadioButtonPanel(CronItemEnum.YEAR, "不使用");
+        unUsedRadioPanel.getRadioButton().setSelected(true);
         radioGroup.add(unUsedRadioPanel.getRadioButton());
     }
 
