@@ -17,7 +17,6 @@ import java.util.List;
  * Cron 表达式结果
  */
 public class CronResultPanel extends AbstractPanel {
-    // TODO private CronResultTablePanel cronResultTablePanel;
     private CronExpressionPanel cronExpressionPanel;
     private CronExecutionTimePanel cronExecutionTimePanel;
 
