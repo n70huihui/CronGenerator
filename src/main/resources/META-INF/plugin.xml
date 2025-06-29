@@ -10,9 +10,6 @@
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor url="https://github.com/n70huihui">n70huihui 热心市民灰灰</vendor>
 
-    <!-- 指定版本号 -->
-    <idea-version since-build="222.*"/>
-
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
