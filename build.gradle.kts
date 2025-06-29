@@ -1,3 +1,6 @@
+import com.jetbrains.plugin.structure.jar.PLUGIN_XML
+import org.jetbrains.intellij.platform.gradle.tasks.PatchPluginXmlTask
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.1.0"
@@ -5,7 +8,7 @@ plugins {
 }
 
 group = "cn.edu.hnu"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -47,5 +50,8 @@ tasks {
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "21"
+    }
+    patchPluginXml {
+        sinceBuild = "222.*"
     }
 }
