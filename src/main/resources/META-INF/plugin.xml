@@ -24,6 +24,7 @@ A lightweight tool designed for developers to quickly generate Cron expressions 
 <ul>
   <li><b>可视化配置</b>：通过图形界面选择时间规则（秒/分/时/日/月/周/年），自动生成Cron表达式</li>
   <li><b>实时预览</b>：动态展示未来5次执行时间，确保调度逻辑准确</li>
+  <li><b>快速键入</b>: 通过插件的内置按钮，可以直接将生成的表达式插入到您的IDE中，方便快捷</li>
 </ul>
 
 <p>无需切换浏览器，在IDE内高效管理您的定时任务</p>
