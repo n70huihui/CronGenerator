@@ -17,7 +17,6 @@
 
 3. **快速键入 (Quick Insertion)**：一键插入表达式到代码编辑器，支持 **IntelliJ IDEA**、**PyCharm** 等 JetBrains 全家桶（支持版本：2022.2 及以上）。
 
----
 
 ## 🛠️ 安装指南 (Installation)
 ### 方式一：IDE 在线安装 (Recommended)
@@ -30,7 +29,6 @@
 2. `Settings` > `Plugins` > ⚙️ > `Install Plugin from Disk...`
 3. 选择下载文件并重启 IDE
 
----
 
 ## 🔍 同类工具对比 (Comparison)
 | 功能                | 本插件               | 在线生成器  | Vue-Cron   |
@@ -39,7 +37,6 @@
 | **实时预览**        | ✅ 未来 5 次执行时间 | ⚠️ 部分支持            | ✅                     |
 | **表达式快速插入**  | ✅ 一键插入代码      | ❌ 手动复制            | ❌ 需手动粘贴           |
 
----
 
 ## 📄 开源协议 (License)
 本项目采用 [MIT License](https://opensource.org/licenses/MIT)  
