@@ -15,7 +15,7 @@
 
 2. **实时预览 (Real-time Preview)**：动态展示未来 5 次执行时间，避免调度逻辑错误。
 
-3. **快速键入 (Quick Insertion)**：一键插入表达式到代码编辑器，支持 **IntelliJ IDEA**、**PyCharm** 等 JetBrains 全家桶（支持版本：2025 及以上）。
+3. **快速键入 (Quick Insertion)**：一键插入表达式到代码编辑器，支持 **IntelliJ IDEA**、**PyCharm** 等 JetBrains 全家桶（支持版本：2022.2 及以上）。
 
 
 ## 🛠️ 安装指南 (Installation)
