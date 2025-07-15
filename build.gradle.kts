@@ -1,6 +1,3 @@
-import com.jetbrains.plugin.structure.jar.PLUGIN_XML
-import org.jetbrains.intellij.platform.gradle.tasks.PatchPluginXmlTask
-
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.1.0"
@@ -8,7 +5,7 @@ plugins {
 }
 
 group = "cn.edu.hnu"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -37,7 +34,11 @@ intellijPlatform {
         }
 
         changeNotes = """
-      Initial version
+            <ul>
+                <li><b>1.0.0</b> - 初始版本</li>
+                <li><b>1.0.1</b> - 修复了无法适配低版本 IDE 的 bug</li>
+                <li><b>1.0.2</b> - 修复了多项目下面板无法正常显示的 bug</li>
+            </ul>
     """.trimIndent()
     }
 }
