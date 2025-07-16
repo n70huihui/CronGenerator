@@ -5,6 +5,7 @@ import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -37,8 +38,9 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
      * @param cols 列
      * @param offset 显示数字的偏移量
      */
-    public CronSpecifyRadioPanel(CronItemEnum cronItemEnum, String description, int rows, int cols, int offset) {
+    public CronSpecifyRadioPanel(CronItemEnum cronItemEnum, String description, int rows, int cols, int offset, Project project) {
         // region 初始化组件
+        this.project = project;
         this.cronItemEnum = cronItemEnum;
         this.specifyRadio = new JRadioButton(description);
         this.checkboxes = new JCheckBox[rows][cols];
@@ -70,8 +72,9 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
      */
     public CronSpecifyRadioPanel(CronItemEnum cronItemEnum, String description,
                                  int rows, int cols, int offset,
-                                 int displayRows, int displayCols) {
+                                 int displayRows, int displayCols, Project project) {
         // region 初始化组件
+        this.project = project;
         this.cronItemEnum = cronItemEnum;
         this.specifyRadio = new JRadioButton(description);
         this.checkboxes = new JCheckBox[rows][cols];
@@ -196,8 +199,8 @@ public class CronSpecifyRadioPanel extends AbstractPanelComponent {
     public void updateResultCronExpression(CronItemEnum cronItemEnum) {
         if (this.specifyRadio.isSelected()) {
             List<String> selectedCheckboxes = getSelectedCheckBoxes();
-            CronExpressionUtil.setSpecify(cronItemEnum, selectedCheckboxes);
-            CronResultPanelUtil.updateCronExpression();
+            CronExpressionUtil.setSpecify(cronItemEnum, selectedCheckboxes, project);
+            CronResultPanelUtil.updateCronExpression(project);
         }
     }
 }

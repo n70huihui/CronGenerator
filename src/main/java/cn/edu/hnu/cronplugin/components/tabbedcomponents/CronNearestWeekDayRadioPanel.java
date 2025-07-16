@@ -6,6 +6,7 @@ import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.listeners.TextFieldUpdateDocumentListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -24,8 +25,9 @@ public class CronNearestWeekDayRadioPanel extends AbstractPanelComponent {
 
     public CronNearestWeekDayRadioPanel(CronItemEnum cronItemEnum, String description,
                                         String nearestWeekDayField, String nearestWeekDayLabel,
-                                        int columns) {
+                                        int columns, Project project) {
         // region 初始化组件
+        this.project = project;
         this.cronItemEnum = cronItemEnum;
         this.nearestWeekDayRadio = new JRadioButton(description);
         this.nearestWeekDayField = new JTextField(nearestWeekDayField, columns);
@@ -73,8 +75,8 @@ public class CronNearestWeekDayRadioPanel extends AbstractPanelComponent {
     @Override
     public void updateResultCronExpression(CronItemEnum cronItemEnum) {
         if (this.nearestWeekDayRadio.isSelected()) {
-            CronExpressionUtil.setNearestWeekdayOfMonth(this.nearestWeekDayField.getText());
-            CronResultPanelUtil.updateCronExpression();
+            CronExpressionUtil.setNearestWeekdayOfMonth(this.nearestWeekDayField.getText(), project);
+            CronResultPanelUtil.updateCronExpression(project);
         }
     }
 

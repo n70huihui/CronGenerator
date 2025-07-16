@@ -5,6 +5,7 @@ import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.Box;
 import javax.swing.JRadioButton;
@@ -18,8 +19,9 @@ public class CronRadioButtonPanel extends AbstractPanelComponent {
 
     private JRadioButton radioButton;
 
-    public CronRadioButtonPanel(CronItemEnum cronItemEnum, String description) {
+    public CronRadioButtonPanel(CronItemEnum cronItemEnum, String description, Project project) {
         // region 初始化内部组件
+        this.project = project;
         this.cronItemEnum = cronItemEnum;
         this.radioButton = new JRadioButton(description);
         // endregion
@@ -62,17 +64,17 @@ public class CronRadioButtonPanel extends AbstractPanelComponent {
         if (this.radioButton.isSelected()) {
             String text = this.radioButton.getText();
             if (text.startsWith("每")) {
-                CronExpressionUtil.setEvery(cronItemEnum);
+                CronExpressionUtil.setEvery(cronItemEnum, project);
             } else if ("本月最后一天".equals(text)) {
-                CronExpressionUtil.setLastDayOfMonth();
+                CronExpressionUtil.setLastDayOfMonth(project);
             } else if ("本月最后一个工作日".equals(text)) {
-                CronExpressionUtil.setLastWeekdayOfMonth();
+                CronExpressionUtil.setLastWeekdayOfMonth(project);
             } else if ("不指定".equals(text)) {
-                CronExpressionUtil.setNoSpecify(cronItemEnum);
+                CronExpressionUtil.setNoSpecify(cronItemEnum, project);
             } else if ("不使用".equals(text)) {
-                CronExpressionUtil.setUnUsed(cronItemEnum);
+                CronExpressionUtil.setUnUsed(cronItemEnum, project);
             }
-            CronResultPanelUtil.updateCronExpression();
+            CronResultPanelUtil.updateCronExpression(project);
         }
     }
 

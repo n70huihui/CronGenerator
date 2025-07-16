@@ -1,6 +1,7 @@
 package cn.edu.hnu.cronplugin.components;
 
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.JPanel;
 
@@ -12,6 +13,10 @@ public abstract class AbstractPanelComponent extends JPanel {
      * 标识该组件是属于哪个标签页的
      */
     protected CronItemEnum cronItemEnum;
+    /**
+     * 关联的项目
+     */
+    protected Project project;
     /**
      * 设置选项监听器
      */

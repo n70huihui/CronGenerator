@@ -1,5 +1,7 @@
 package cn.edu.hnu.cronplugin.panels;
 
+import com.intellij.openapi.project.Project;
+
 import javax.swing.JLabel;
 
 /**
@@ -8,6 +10,10 @@ import javax.swing.JLabel;
 public class PlaceholderPanel extends AbstractPanel {
 
     private JLabel label;
+
+    public PlaceholderPanel(Project project) {
+        super(project);
+    }
 
     @Override
     protected void initializeComponents() {

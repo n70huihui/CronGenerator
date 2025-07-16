@@ -10,6 +10,7 @@ import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronSecondsPanel;
 import cn.edu.hnu.cronplugin.panels.PlaceholderPanel;
 import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronWeeksPanel;
 import cn.edu.hnu.cronplugin.panels.tabbedpanes.CronYearsPanel;
+import com.intellij.openapi.project.Project;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,27 +33,27 @@ public class TabbedPaneUtil {
         panelMap.put("帮助", new CronHelpPanel());
     }*/
 
-    public static AbstractPanel getSubPanels(String name) {
+    public static AbstractPanel getSubPanels(String name, Project project) {
         // 根据名称返回类
         switch (name) {
             case "秒":
-                return new CronSecondsPanel();
+                return new CronSecondsPanel(project);
             case "分钟":
-                return new CronMinutesPanel();
+                return new CronMinutesPanel(project);
             case "小时":
-                return new CronHoursPanel();
+                return new CronHoursPanel(project);
             case "日":
-                return new CronDaysPanel();
+                return new CronDaysPanel(project);
             case "月":
-                return new CronMonthsPanel();
+                return new CronMonthsPanel(project);
             case "周":
-                return new CronWeeksPanel();
+                return new CronWeeksPanel(project);
             case "年":
-                return new CronYearsPanel();
+                return new CronYearsPanel(project);
             case "帮助":
-                return new CronHelpPanel();
+                return new CronHelpPanel(project);
             default:
-                return new PlaceholderPanel();
+                return new PlaceholderPanel(project);
         }
     }
 

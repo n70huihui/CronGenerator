@@ -6,6 +6,7 @@ import cn.edu.hnu.cronplugin.listeners.ComboUpdateActionListener;
 import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 
 import javax.swing.Box;
@@ -24,8 +25,9 @@ public class CronLastWeekPanel extends AbstractPanelComponent {
 
     private String[] weekdayNames;
 
-    public CronLastWeekPanel(CronItemEnum cronItemEnum, String description) {
+    public CronLastWeekPanel(CronItemEnum cronItemEnum, String description, Project project) {
         // region 初始化组件
+        this.project = project;
         this.cronItemEnum = cronItemEnum;
         this.weekdayNames = new String[]{"日", "一", "二", "三", "四", "五", "六"};
         this.lastWeekdayRadio = new JRadioButton(description);
@@ -73,8 +75,8 @@ public class CronLastWeekPanel extends AbstractPanelComponent {
     public void updateResultCronExpression(CronItemEnum cronItemEnum) {
         if (this.lastWeekdayRadio.isSelected()) {
             int index = this.lastWeekdayCombo.getSelectedIndex();
-            CronExpressionUtil.setLastWeekOfMonth(String.valueOf(index + 1));
-            CronResultPanelUtil.updateCronExpression();
+            CronExpressionUtil.setLastWeekOfMonth(String.valueOf(index + 1), project);
+            CronResultPanelUtil.updateCronExpression(project);
         }
     }
 

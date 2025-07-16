@@ -1,6 +1,12 @@
 package cn.edu.hnu.cronplugin.utils;
 
 import cn.edu.hnu.cronplugin.panels.resultpanels.CronResultPanel;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 表达式结果工具类
@@ -9,21 +15,25 @@ public class CronResultPanelUtil {
 
     private CronResultPanelUtil() {}
 
-    private static final CronResultPanel CRON_RESULT_PANEL = new CronResultPanel();
+    private static final Map<Project, CronResultPanel> PANEL_MAP = new ConcurrentHashMap<>();
 
-    public static CronResultPanel getCronResultPanel() {
-        return CRON_RESULT_PANEL;
+    public static void initPanel(Project project) {
+        PANEL_MAP.put(project, new CronResultPanel(project));
     }
 
-    public static void updateCronExpression() {
+    public static CronResultPanel getCronResultPanel(Project project) {
+        return PANEL_MAP.get(project);
+    }
+
+    public static void updateCronExpression(Project project) {
         // 更新面板显示的表达式
-        CRON_RESULT_PANEL.setCronExpression(CronExpressionUtil.getCronExpression());
+        getCronResultPanel(project).setCronExpression(CronExpressionUtil.getCronExpression(project));
         // 更新执行时间
-        CRON_RESULT_PANEL.setExecutionTime(CronExpressionUtil.getNext5Executions());
+        getCronResultPanel(project).setExecutionTime(CronExpressionUtil.getNext5Executions(project));
     }
 
-    public static void setCronExpression(String cronExpression) {
-        CRON_RESULT_PANEL.setCronExpression(cronExpression);
+    public static void setCronExpression(String cronExpression, Project project) {
+        getCronResultPanel(project).setCronExpression(cronExpression);
     }
 
 }

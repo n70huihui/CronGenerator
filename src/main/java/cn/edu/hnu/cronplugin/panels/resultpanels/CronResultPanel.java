@@ -4,6 +4,7 @@ import cn.edu.hnu.cronplugin.components.resultcomponents.CronExecutionTimePanel;
 import cn.edu.hnu.cronplugin.components.resultcomponents.CronExpressionPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.JBColor;
 
 import javax.swing.BorderFactory;
@@ -19,6 +20,10 @@ import java.util.List;
 public class CronResultPanel extends AbstractPanel {
     private CronExpressionPanel cronExpressionPanel;
     private CronExecutionTimePanel cronExecutionTimePanel;
+
+    public CronResultPanel(Project project) {
+        super(project);
+    }
 
     /**
      * 设置 Cron 表达式
@@ -39,7 +44,7 @@ public class CronResultPanel extends AbstractPanel {
     @Override
     protected void initializeComponents() {
         // cronResultTablePanel = new CronResultTablePanel();
-        cronExpressionPanel = new CronExpressionPanel();
+        cronExpressionPanel = new CronExpressionPanel(project);
         cronExecutionTimePanel = new CronExecutionTimePanel();
     }
 

@@ -6,6 +6,7 @@ import cn.edu.hnu.cronplugin.listeners.RadioUpdateItemListener;
 import cn.edu.hnu.cronplugin.listeners.TextFieldUpdateDocumentListener;
 import cn.edu.hnu.cronplugin.utils.CronExpressionUtil;
 import cn.edu.hnu.cronplugin.utils.CronResultPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -30,8 +31,9 @@ public class CronRangeRadioPanel extends AbstractPanelComponent {
     public CronRangeRadioPanel(CronItemEnum cronItemEnum, String description,
                                String rangeFromField, String rangeFromLabel,
                                String rangeToField, String rangeToLabel,
-                               int fromColumns, int toColumns) {
+                               int fromColumns, int toColumns, Project project) {
         // region 初始化内部组件
+        this.project = project;
         this.cronItemEnum = cronItemEnum;
         this.rangeRadio = new JRadioButton(description);
         this.rangeFromField = new JTextField(rangeFromField, fromColumns);
@@ -90,8 +92,8 @@ public class CronRangeRadioPanel extends AbstractPanelComponent {
     @Override
     public void updateResultCronExpression(CronItemEnum cronItemEnum) {
         if (this.rangeRadio.isSelected()) {
-            CronExpressionUtil.setRange(cronItemEnum, this.rangeFromField.getText(), this.rangeToField.getText());
-            CronResultPanelUtil.updateCronExpression();
+            CronExpressionUtil.setRange(cronItemEnum, this.rangeFromField.getText(), this.rangeToField.getText(), project);
+            CronResultPanelUtil.updateCronExpression(project);
         }
     }
 

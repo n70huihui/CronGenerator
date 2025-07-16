@@ -7,6 +7,7 @@ import cn.edu.hnu.cronplugin.components.tabbedcomponents.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -24,6 +25,10 @@ public class CronHoursPanel extends AbstractPanel {
     // 复选框面板
     private CronSpecifyRadioPanel specifyRadioPanel;
 
+    public CronHoursPanel(Project project) {
+        super(project);
+    }
+
     @Override
     protected void initializeComponents() {
 
@@ -31,7 +36,7 @@ public class CronHoursPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.HOUR, "每小时 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.HOUR, "每小时 允许的通配符[,-*/]", project);
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
@@ -39,7 +44,7 @@ public class CronHoursPanel extends AbstractPanel {
         rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.HOUR, "周期从",
                 "1", "小时到",
                 "2", "小时",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
@@ -47,12 +52,12 @@ public class CronHoursPanel extends AbstractPanel {
         intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.HOUR, "周期从",
                 "0", "小时开始, 每",
                 "1", "小时执行一次",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：指定小时的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.HOUR, "指定", 2, 12, 0);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.HOUR, "指定", 2, 12, 0, project);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 

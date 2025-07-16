@@ -36,11 +36,12 @@ public class CronExpressionPanel extends AbstractPanelComponent {
     private JLabel cronExpressionLabel;
     private ExtendableTextField cronExpressionField;
 
-    public CronExpressionPanel() {
+    public CronExpressionPanel(Project project) {
         // region 初始化组件
+        this.project = project;
         cronExpressionLabel = new JLabel("  表达式: ");
 
-        cronExpressionField = new ExtendableTextField(CronExpressionUtil.getCronExpression());
+        cronExpressionField = new ExtendableTextField(CronExpressionUtil.getCronExpression(project));
         cronExpressionField.setEditable(false);
         cronExpressionField.setColumns(20);
         Font currentFont = cronExpressionField.getFont();
@@ -104,8 +105,7 @@ public class CronExpressionPanel extends AbstractPanelComponent {
 
     private void insertToEditor(String text) {
         // 获取编辑器
-        Project openProject = ProjectManager.getInstance().getOpenProjects()[0];
-        Editor editor = FileEditorManager.getInstance(openProject).getSelectedTextEditor();
+        Editor editor = FileEditorManager.getInstance(this.project).getSelectedTextEditor();
 
         if (editor != null) {
             Document document = editor.getDocument();
@@ -114,7 +114,7 @@ public class CronExpressionPanel extends AbstractPanelComponent {
 
             // 插入表达式
             // 安全写入
-            WriteCommandAction.runWriteCommandAction(openProject, () -> {
+            WriteCommandAction.runWriteCommandAction(this.project, () -> {
                 document.insertString(offset, text);
                 // 移动光标到末尾
                 caretModel.moveToOffset(offset + text.length());

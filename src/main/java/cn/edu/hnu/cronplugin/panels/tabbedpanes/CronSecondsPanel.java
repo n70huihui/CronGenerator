@@ -7,6 +7,7 @@ import cn.edu.hnu.cronplugin.components.tabbedcomponents.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -27,6 +28,10 @@ public class CronSecondsPanel extends AbstractPanel {
     // 复选框面板
     private CronSpecifyRadioPanel specifyRadioPanel;
 
+    public CronSecondsPanel(Project project) {
+        super(project);
+    }
+
     @Override
     protected void initializeComponents() {
 
@@ -34,7 +39,7 @@ public class CronSecondsPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.SECOND, "每秒 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.SECOND, "每秒 允许的通配符[,-*/]", project);
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
@@ -42,7 +47,7 @@ public class CronSecondsPanel extends AbstractPanel {
         rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.SECOND, "周期从",
                 "1", "秒到",
                 "2", "秒",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
@@ -50,12 +55,12 @@ public class CronSecondsPanel extends AbstractPanel {
         intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.SECOND, "周期从",
                 "0", "秒开始, 每",
                 "1", "秒执行一次",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：指定秒数的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.SECOND, "指定", 6, 10, 0);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.SECOND, "指定", 6, 10, 0, project);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 

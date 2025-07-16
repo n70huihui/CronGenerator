@@ -2,6 +2,7 @@ package cn.edu.hnu.cronplugin.panels.tabbedpanes;
 
 import cn.edu.hnu.cronplugin.components.tabbedcomponents.CronHelpSectionPanel;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
+import com.intellij.openapi.project.Project;
 import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.JBScrollPane;
 
@@ -21,10 +22,8 @@ public class CronHelpPanel extends AbstractPanel {
     private JPanel helpContentPanel;
     private JScrollPane scrollPane;
 
-    public CronHelpPanel() {
-        initializeComponents();
-        setupLayout();
-        setupEventHandlers();
+    public CronHelpPanel(Project project) {
+        super(project);
     }
 
     @Override

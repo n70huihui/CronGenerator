@@ -7,6 +7,7 @@ import cn.edu.hnu.cronplugin.components.tabbedcomponents.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -26,13 +27,17 @@ public class CronMonthsPanel extends AbstractPanel {
     // 复选框面板
     private CronSpecifyRadioPanel specifyRadioPanel;
 
+    public CronMonthsPanel(Project project) {
+        super(project);
+    }
+
     @Override
     protected void initializeComponents() {
         // 创建单选按钮组
         radioGroup = new ButtonGroup();
 
         // 选项1：每秒执行
-        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.MONTH, "每月 允许的通配符[,-*/]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.MONTH, "每月 允许的通配符[,-*/]", project);
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
@@ -40,7 +45,7 @@ public class CronMonthsPanel extends AbstractPanel {
         rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.MONTH, "周期从",
                 "1", "月到",
                 "2", "月",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
@@ -48,16 +53,16 @@ public class CronMonthsPanel extends AbstractPanel {
         intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.MONTH, "周期从",
                 "1", "月开始, 每",
                 "1", "月执行一次",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：不指定
-        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.MONTH, "不指定");
+        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.MONTH, "不指定", project);
         radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项5：指定月的单选按钮
-        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.MONTH, "指定", 2, 6, 1);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.MONTH, "指定", 2, 6, 1, project);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 

@@ -8,6 +8,7 @@ import cn.edu.hnu.cronplugin.components.tabbedcomponents.CronSpecifyRadioPanel;
 import cn.edu.hnu.cronplugin.cron.CronItemEnum;
 import cn.edu.hnu.cronplugin.panels.AbstractPanel;
 import cn.edu.hnu.cronplugin.utils.ContentPanelUtil;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -33,6 +34,10 @@ public class CronDaysPanel extends AbstractPanel {
     // 复选框面板
     private CronSpecifyRadioPanel specifyRadioPanel;
 
+    public CronDaysPanel(Project project) {
+        super(project);
+    }
+
     @Override
     protected void initializeComponents() {
 
@@ -40,7 +45,7 @@ public class CronDaysPanel extends AbstractPanel {
         radioGroup = new ButtonGroup();
 
         // 选项1：每日执行
-        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "每日 允许的通配符[,-*/LW]");
+        radioButtonPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "每日 允许的通配符[,-*/LW]", project);
         radioButtonPanel.getRadioButton().setSelected(true);
         radioGroup.add(radioButtonPanel.getRadioButton());
 
@@ -48,7 +53,7 @@ public class CronDaysPanel extends AbstractPanel {
         rangeRadioPanel = new CronRangeRadioPanel(CronItemEnum.DAY, "周期从",
                 "1", "日到",
                 "2", "日",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(rangeRadioPanel.getRangeRadio());
 
@@ -56,30 +61,30 @@ public class CronDaysPanel extends AbstractPanel {
         intervalRadioPanel = new CronIntervalRadioPanel(CronItemEnum.DAY, "周期从",
                 "0", "日开始, 每",
                 "1", "日执行一次",
-                5, 5
+                5, 5, project
         );
         radioGroup.add(intervalRadioPanel.getIntervalRadio());
 
         // 选项4：指定最近工作日
         nearestWeekDayRadioPanel = new CronNearestWeekDayRadioPanel(CronItemEnum.DAY, "每月",
                 "1", "日最近的那个工作日",
-                5);
+                5, project);
         radioGroup.add(nearestWeekDayRadioPanel.getNearestWeekDayRadio());
 
         // 选项5：本月最后一天
-        lastDayOfMonthRadioPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "本月最后一天");
+        lastDayOfMonthRadioPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "本月最后一天", project);
         radioGroup.add(lastDayOfMonthRadioPanel.getRadioButton());
 
         // 选项6：本月最后一个工作日
-        lastWeekDayOfMonthRadioPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "本月最后一个工作日");
+        lastWeekDayOfMonthRadioPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "本月最后一个工作日", project);
         radioGroup.add(lastWeekDayOfMonthRadioPanel.getRadioButton());
 
         // 选项7：不指定
-        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "不指定");
+        noSpecifyRadioPanel = new CronRadioButtonPanel(CronItemEnum.DAY, "不指定", project);
         radioGroup.add(noSpecifyRadioPanel.getRadioButton());
 
         // 选项8：指定
-        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.DAY, "指定", 1, 31, 1, 3, 13);
+        specifyRadioPanel = new CronSpecifyRadioPanel(CronItemEnum.DAY, "指定", 1, 31, 1, 3, 13, project);
         radioGroup.add(specifyRadioPanel.getSpecifyRadio());
     }
 
